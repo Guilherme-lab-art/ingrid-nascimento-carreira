@@ -127,15 +127,16 @@
     .ticker span::after { content: "✳"; padding-left: 24px; font-size: 14px; vertical-align: 2px; }
     @keyframes ticker { to { transform: translateX(-50%); } }
 
-    /* Narrative: challenge */
+    /* Narrative: small visual cues, cropped from the client-supplied artwork instead of full-width image blocks. */
     .challenge { position: relative; overflow: hidden; padding: 79px var(--gutter) 85px; color: var(--ink); background: var(--paper); }
     .challenge::before { content: "INGRID"; position: absolute; top: 26px; left: -8px; color: rgba(8,8,8,.04); font: 400 clamp(120px, 29vw, 430px)/.75 var(--display); letter-spacing: -.01em; pointer-events: none; }
-    .challenge-grid { position: relative; display: grid; gap: 32px; }
-    .challenge-heading { max-width: 10ch; }
-    .challenge-lead { max-width: 29ch; margin: 21px 0 0; font-size: 14px; line-height: 1.65; }
-    .challenge-art { margin: 0; overflow: hidden; background: var(--paper-dim); }
-    .challenge-art img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
-    .challenge-art figcaption { padding: 12px 14px 14px; border-top: 1px solid var(--dark-line); font-size: 10px; font-weight: 800; letter-spacing: .08em; line-height: 1.45; text-transform: uppercase; }
+    .challenge-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(122px, .56fr); align-items: end; gap: 16px; }
+    .challenge-copy { min-width: 0; }
+    .challenge-heading { max-width: 7.6ch; }
+    .challenge-art { position: relative; width: 100%; margin: 0 0 11px; padding: 6px; overflow: visible; border: 1px solid var(--dark-line); background: var(--paper); box-shadow: 8px 8px 0 rgba(8,8,8,.08); transform: rotate(4deg); }
+    .challenge-art::before { content: "VOZ"; position: absolute; right: 7px; bottom: -17px; z-index: 1; padding: 4px 6px; color: var(--paper); background: var(--ink); font-size: 8px; font-weight: 900; letter-spacing: .14em; }
+    .challenge-art img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .challenge-art figcaption { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
 
     /* Services: a numbered editorial list, not generic cards */
@@ -160,10 +161,11 @@
     .approach { padding: 77px var(--gutter) 79px; color: var(--ink); background: var(--surface); }
     .approach-head { display: grid; gap: 25px; }
     .approach-head .section-title { max-width: 8.4ch; }
-    .approach-note { max-width: 440px; font-size: 14px; line-height: 1.65; }
-    .approach-art { margin: 38px 0 0; overflow: hidden; border: 1px solid rgba(8,8,8,.2); background: var(--paper); }
-    .approach-art img { width: 100%; min-height: 165px; object-fit: cover; object-position: center; }
-    .approach-steps { display: grid; gap: 0; margin-top: 13px; border-top: 1px solid rgba(8,8,8,.28); }
+    .approach-note { max-width: 30ch; font-size: 14px; line-height: 1.65; }
+    .approach-art { position: relative; width: min(61%, 285px); margin: -4px 4px 28px auto; padding: 6px; overflow: visible; border: 1px solid rgba(8,8,8,.2); background: var(--paper); box-shadow: -8px 8px 0 rgba(8,8,8,.08); transform: rotate(-3deg); }
+    .approach-art::after { content: "CONEXÃO"; position: absolute; bottom: -16px; left: 9px; padding: 4px 6px; color: var(--paper); background: var(--orange); font-size: 8px; font-weight: 900; letter-spacing: .13em; }
+    .approach-art img { width: 100%; aspect-ratio: 1.48 / 1; object-fit: cover; object-position: center; }
+    .approach-steps { display: grid; gap: 0; margin-top: 4px; border-top: 1px solid rgba(8,8,8,.28); }
     .step { display: grid; grid-template-columns: 46px 1fr; gap: 13px; padding: 18px 0; border-bottom: 1px solid rgba(8,8,8,.28); }
     .approach-steps--lean .step h3 { font-size: clamp(27px, 7vw, 48px); }
     .step-number { padding-top: 5px; font-size: 10px; font-weight: 900; letter-spacing: .11em; }
@@ -198,6 +200,8 @@
     .diagnostic-copy .section-title { max-width: 8ch; }
     .diagnostic-copy .section-copy { max-width: 42ch; }
     .diagnostic-panel { padding: 16px; border: 1px solid rgba(8,8,8,.25); background: rgba(255,255,255,.18); }
+    .diagnostic-stitch { height: 48px; margin: -4px -4px 14px; overflow: hidden; border-bottom: 1px solid rgba(8,8,8,.17); background: var(--paper); }
+    .diagnostic-stitch img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .diagnostic-options { display: grid; gap: 7px; }
     .diagnostic-option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 14px 12px; border: 1px solid rgba(8,8,8,.3); border-radius: 0; background: transparent; color: var(--ink); font-size: 11px; font-weight: 800; letter-spacing: .04em; text-align: left; transition: background .25s ease, color .25s ease, transform .25s ease; }
     .diagnostic-option::after { content: "↗"; color: var(--orange); font-size: 16px; font-weight: 400; }
@@ -288,8 +292,9 @@
       .portrait-label { right: 21px; bottom: 48px; font-size: 8px; }
       .hero-scroll { right: 30px; }
       .challenge { padding-top: 120px; padding-bottom: 125px; }
-      .challenge-grid { grid-template-columns: minmax(0, .9fr) minmax(340px, .68fr); align-items: center; gap: clamp(60px, 13vw, 190px); }
-      .challenge-art img { min-height: 530px; }
+      .challenge-grid { grid-template-columns: minmax(0, .9fr) minmax(195px, .34fr); align-items: center; gap: clamp(55px, 10vw, 145px); }
+      .challenge-heading { max-width: 8.7ch; }
+      .challenge-art { max-width: 270px; margin-bottom: 18px; }
       .services { padding-top: 112px; }
       .services-head { grid-template-columns: 1fr 1fr; align-items: end; gap: 80px; }
       .services-head .section-title { max-width: 9ch; }
@@ -297,8 +302,7 @@
       .service-copy { margin-left: calc(var(--gutter) + 67px); font-size: 15px; }
       .approach { padding-top: 118px; padding-bottom: 120px; }
       .approach-head { grid-template-columns: 1.1fr .8fr; align-items: end; gap: 100px; }
-      .approach-art { margin-top: 62px; }
-      .approach-art img { min-height: 335px; }
+      .approach-art { width: min(29%, 325px); margin: -15px 7% 38px auto; }
       .approach-steps { grid-template-columns: repeat(3, 1fr); margin-top: 16px; }
       .step { grid-template-columns: 1fr; min-height: 145px; padding: 25px 22px 24px 0; border-right: 1px solid rgba(8,8,8,.28); border-bottom: 0; }
       .step + .step { padding-left: 22px; }
@@ -413,13 +417,13 @@
 
     <section class="challenge" id="desafio" aria-labelledby="challenge-title">
       <div class="challenge-grid">
-        <div class="reveal">
+        <div class="challenge-copy reveal">
           <p class="kicker orange"><span class="section-number">01</span> O momento profissional</p>
-          <h2 class="section-title challenge-heading" id="challenge-title" data-word-motion>Você não precisa caminhar sem <em>direção.</em></h2>
+          <h2 class="section-title challenge-heading" id="challenge-title" data-word-motion>Seu próximo passo com <em>direção.</em></h2>
         </div>
         <figure class="challenge-art reveal">
-          <img src="assets/voice-megaphone.jpg" alt="Megafone azul sobre formas laranja, representando voz e posicionamento" loading="lazy">
-          <figcaption>Clareza para sua trajetória ser percebida.</figcaption>
+          <img src="assets/voice-detail.jpg" alt="Recorte de megafone azul sobre formas laranja, representando voz e posicionamento" loading="lazy">
+          <figcaption>Voz e posicionamento.</figcaption>
         </figure>
       </div>
     </section>
@@ -469,7 +473,7 @@
         <p class="approach-note reveal">Escuta, clareza e estratégia para o seu momento.</p>
       </div>
       <figure class="approach-art reveal">
-        <img src="assets/connection-puzzle.jpg" alt="Peças de quebra-cabeça laranja se conectando, representando clareza e direção" loading="lazy">
+        <img src="assets/connection-detail.jpg" alt="Recorte de duas peças de quebra-cabeça laranja se conectando, representando clareza e direção" loading="lazy">
       </figure>
       <div class="approach-steps approach-steps--lean">
         <article class="step reveal"><span class="step-number">01</span><div><h3>Escutar.</h3></div></article>
@@ -537,6 +541,7 @@
           <p class="section-copy">Escolha um assunto e continue pelo WhatsApp.</p>
         </div>
         <div class="diagnostic-panel reveal">
+          <figure class="diagnostic-stitch" aria-hidden="true"><img src="assets/connection-strip.jpg" alt="" loading="lazy"></figure>
           <div class="diagnostic-options" role="group" aria-label="Escolha um assunto">
             <button class="diagnostic-option" type="button" data-diagnostic="Currículo estratégico">Quero revisar meu currículo</button>
             <button class="diagnostic-option" type="button" data-diagnostic="Posicionamento e LinkedIn">Quero melhorar meu LinkedIn e posicionamento</button>
