@@ -17,8 +17,9 @@
     :root {
       --ink: #080808;
       --ink-2: #141414;
-      --paper: #fffdfa;
-      --paper-dim: #f2efe9;
+      --paper: #f6f2ec;
+      --paper-dim: #e9e2d8;
+      --surface: #eee8df;
       --orange: #f15b3c;
       --hairline: rgba(255, 253, 250, .22);
       --dark-line: rgba(8, 8, 8, .17);
@@ -108,7 +109,7 @@
     .portrait-label { position: absolute; z-index: 3; right: 9px; bottom: 35px; color: rgba(244,240,232,.76); font-size: 7px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
     .hero-scroll { position: absolute; z-index: 4; right: 16px; bottom: 20px; color: rgba(244,240,232,.5); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 
-    .ticker { overflow: hidden; display: flex; align-items: center; min-height: 47px; color: var(--ink); background: var(--paper); border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); white-space: nowrap; }
+    .ticker { overflow: hidden; display: flex; align-items: center; min-height: 47px; color: var(--ink); background: var(--paper-dim); border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); white-space: nowrap; }
     .ticker__track { display: flex; width: max-content; animation: ticker 22s linear infinite; }
     .ticker span { padding-right: 24px; font: 400 22px/.8 var(--display); letter-spacing: .025em; text-transform: uppercase; }
     .ticker span::after { content: "✳"; padding-left: 24px; font-size: 14px; vertical-align: 2px; }
@@ -126,7 +127,7 @@
     .challenge-signal strong { color: var(--orange); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 
     /* Services: a numbered editorial list, not generic cards */
-    .services { padding: 72px var(--gutter) 0; color: var(--ink); background: var(--paper); }
+    .services { padding: 72px var(--gutter) 0; color: var(--ink); background: var(--paper-dim); }
     .services-head { display: grid; gap: 25px; padding-bottom: 48px; }
     .services-head .section-title { max-width: 11ch; }
     .services-head .section-copy { max-width: 430px; color: rgba(8,8,8,.68); }
@@ -141,10 +142,10 @@
     .service-plus { justify-self: end; font-size: 24px; font-weight: 300; line-height: 1; transition: transform .25s ease; }
     .service details[open] .service-plus { color: var(--orange); transform: rotate(45deg); }
     .service-copy { max-width: 550px; margin: -3px 55px 27px calc(var(--gutter) + 41px); color: rgba(8,8,8,.68); font-size: 13px; line-height: 1.67; }
-    .service details[open] { background: var(--paper-dim); }
+    .service details[open] { background: var(--paper); }
 
     /* Approach */
-    .approach { padding: 77px var(--gutter) 79px; color: var(--ink); background: var(--paper); }
+    .approach { padding: 77px var(--gutter) 79px; color: var(--ink); background: var(--surface); }
     .approach-head { display: grid; gap: 25px; }
     .approach-head .section-title { max-width: 8.4ch; }
     .approach-note { max-width: 440px; font-size: 14px; line-height: 1.65; }
