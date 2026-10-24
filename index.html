@@ -179,17 +179,29 @@
     .speaking-note { max-width: 34ch; margin: 0; color: rgba(244,240,232,.72); font-size: 12px; line-height: 1.65; }
     .speaking-location { margin: 0; color: rgba(244,240,232,.52); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 
-    /* Lean conversion layer: real proof and a simple next step, without overwhelming the visitor. */
+    /* Genuine client words have deliberately different editorial treatments — they are not manufactured as a uniform card set. */
     .proof { padding: 70px var(--gutter); color: var(--ink); background: var(--paper); }
     .proof-head { display: grid; gap: 16px; max-width: 650px; }
-    .proof-head .section-title { max-width: 8ch; }
+    .proof-head .section-title { max-width: 9ch; }
     .proof-head .section-copy { max-width: 48ch; }
-    .quote-grid { display: grid; gap: 10px; margin-top: 34px; }
-    .quote-slot { min-height: 190px; display: grid; align-content: space-between; gap: 22px; padding: 20px; border: 1px solid var(--dark-line); background: rgba(255,255,255,.18); }
+    .quote-grid { display: grid; gap: 18px; margin-top: 38px; }
+    .quote-slot { position: relative; display: grid; align-content: space-between; gap: 15px; min-height: 180px; }
     .slot-index { color: var(--orange); font-size: 8px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-    .quote-slot blockquote { margin: 0; color: var(--ink); font: 400 clamp(24px, 6vw, 43px)/.96 var(--serif); letter-spacing: -.04em; }
-    .quote-slot cite { color: rgba(8,8,8,.53); font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
-    .proof-disclaimer { margin: 14px 0 0; color: rgba(8,8,8,.47); font-size: 9px; line-height: 1.5; }
+    .quote-slot blockquote { margin: 0; letter-spacing: -.04em; }
+    .quote-slot cite { font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
+    .quote-slot--message { padding: 0 0 2px; }
+    .quote-slot--message blockquote { position: relative; max-width: 31ch; padding: 20px 21px 21px; border: 1px solid var(--dark-line); border-radius: 2px 18px 18px 18px; background: #e3ddd3; font: 400 clamp(24px, 6vw, 43px)/.99 var(--serif); }
+    .quote-slot--message blockquote::before { content: "“"; position: absolute; top: -27px; left: -2px; color: var(--orange); font: 400 70px/.8 var(--serif); }
+    .quote-slot--message cite { color: rgba(8,8,8,.53); }
+    .quote-slot--impact { min-height: 208px; padding: 24px 21px; color: var(--paper); background: var(--ink); }
+    .quote-slot--impact .slot-index { color: var(--orange); }
+    .quote-slot--impact blockquote { max-width: 18ch; font: 400 clamp(29px, 7vw, 52px)/.92 var(--serif); }
+    .quote-slot--impact cite { color: rgba(244,240,232,.54); }
+    .quote-slot--line { min-height: 164px; padding: 9px 0 18px; border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); }
+    .quote-slot--line blockquote { max-width: 27ch; font: 400 clamp(26px, 6.6vw, 47px)/.96 var(--serif); }
+    .quote-slot--line blockquote strong { color: var(--orange); font-weight: 400; font-style: italic; }
+    .quote-slot--line cite { color: rgba(8,8,8,.53); }
+    .proof-disclaimer { margin: 18px 0 0; color: rgba(8,8,8,.47); font-size: 9px; line-height: 1.5; }
 
     .diagnostic { padding: 70px var(--gutter); color: var(--ink); background: var(--surface); }
     .diagnostic-grid { display: grid; gap: 27px; }
@@ -234,6 +246,10 @@
     .contact-copy { display: grid; gap: 23px; }
     .contact-copy .section-title { max-width: 7ch; }
     .contact-copy .section-copy { max-width: 420px; }
+    .booking-note { display: grid; gap: 6px; max-width: 420px; padding: 16px 0 17px; border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); }
+    .booking-note .kicker { color: var(--orange); }
+    .booking-title { margin: 0; font: 400 clamp(24px, 5vw, 34px)/.96 var(--serif); letter-spacing: -.04em; }
+    .booking-flow { max-width: 46ch; margin: 0; color: rgba(8,8,8,.66); font-size: 10px; font-weight: 700; letter-spacing: .03em; line-height: 1.55; }
     .contact-direct { display: grid; justify-items: start; gap: 12px; }
     .contact-direct .button { background: var(--ink); color: var(--paper); }
     .contact-direct .button:hover { background: var(--orange); color: var(--ink); }
@@ -308,8 +324,12 @@
       .speaking-copy { min-height: 510px; padding: 45px clamp(38px, 5vw, 82px); }
       .speaking-title { max-width: 8.5ch; }
       .proof, .diagnostic { padding-top: 112px; padding-bottom: 112px; }
-      .quote-grid { grid-template-columns: repeat(3, 1fr); }
-      .quote-slot { min-height: 245px; }
+      .quote-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: stretch; gap: 20px; }
+      .quote-slot--message { min-height: 302px; }
+      .quote-slot--impact { min-height: 302px; }
+      .quote-slot--line { grid-column: 1 / -1; grid-template-columns: 142px minmax(0, 1fr) auto; align-items: end; gap: 22px; min-height: 139px; }
+      .quote-slot--line .slot-index { align-self: start; padding-top: 5px; }
+      .quote-slot--line cite { max-width: 155px; text-align: right; }
       .diagnostic-grid { grid-template-columns: minmax(0, .9fr) minmax(380px, .72fr); align-items: start; gap: clamp(60px, 10vw, 160px); }
       .diagnostic-panel { padding: 24px; }
       .about { padding-top: 0; padding-bottom: 123px; }
@@ -493,16 +513,16 @@
 
     <section class="proof" id="historias" aria-labelledby="proof-title">
       <div class="proof-head reveal">
-        <p class="kicker orange"><span class="section-number">FEEDBACKS</span> Relatos reais</p>
-        <h2 class="section-title" id="proof-title" data-word-motion>Feedbacks <em>reais.</em></h2>
-        <p class="section-copy">Trechos curtos enviados por clientes após análises e atendimentos.</p>
+        <p class="kicker orange"><span class="section-number">FEEDBACKS</span> Mensagens recebidas</p>
+        <h2 class="section-title" id="proof-title" data-word-motion>Palavras <em>reais.</em></h2>
+        <p class="section-copy">Trechos literais enviados após atendimentos e análises.</p>
       </div>
       <div class="quote-grid" aria-label="Feedbacks de clientes">
-        <article class="quote-slot reveal"><span class="slot-index">Análise de currículo</span><blockquote>“A análise tirou minhas dúvidas sobre o que incluir e o que não incluir no currículo.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
-        <article class="quote-slot reveal"><span class="slot-index">Atendimento</span><blockquote>“Atendimento solícito, objetivo e proativo. Gostei bastante do serviço.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
-        <article class="quote-slot reveal"><span class="slot-index">Revisão de currículo</span><blockquote>“Você soube destacar os principais pontos do meu currículo.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
+        <article class="quote-slot quote-slot--message reveal"><span class="slot-index">Análise de currículo</span><blockquote>Tinha bastante dúvidas sobre o que podia colocar ou não. Você, olhando e analisando meu currículo, conseguiu tirar minhas dúvidas.</blockquote><cite>Mensagem de cliente · identidade preservada</cite></article>
+        <article class="quote-slot quote-slot--impact reveal"><span class="slot-index">Atendimento</span><blockquote>“Gostei bastante do seu serviço. Bastante solícita, objetiva e proativa.”</blockquote><cite>Mensagem de cliente · identidade preservada</cite></article>
+        <article class="quote-slot quote-slot--line reveal"><span class="slot-index">Avaliação de currículo</span><blockquote>Sua avaliação foi de suma importância. Você soube <strong>destacar os principais pontos</strong> do meu currículo.</blockquote><cite>Mensagem de cliente · identidade preservada</cite></article>
       </div>
-      <p class="proof-disclaimer">Trechos editados apenas para leitura no site, mantendo o sentido dos feedbacks recebidos.</p>
+      <p class="proof-disclaimer">Textos preservados como enviados; apenas nomes e identificações foram omitidos.</p>
     </section>
 
     <section class="about" id="sobre" aria-labelledby="about-title">
@@ -555,6 +575,11 @@
           <p class="kicker orange"><span class="section-number">05</span> Contato</p>
           <h2 class="section-title" id="contact-title" data-word-motion>Vamos abrir espaço para o seu <em>próximo capítulo.</em></h2>
           <p class="section-copy">O próximo passo pode começar por uma mensagem.</p>
+          <aside class="booking-note">
+            <p class="kicker"><span class="section-number">COMO FUNCIONA</span> Atendimento</p>
+            <p class="booking-title">Online, com horário agendado.</p>
+            <p class="booking-flow">Orçamento → agenda digital → contrato → início da consultoria.</p>
+          </aside>
           <div class="contact-direct">
             <a class="button" href="https://wa.me/5511971843486?text=Ol%C3%A1%2C%20Ingrid!%20Quero%20conversar%20sobre%20minha%20carreira." target="_blank" rel="noopener noreferrer" data-track="contact_whatsapp">Chamar no WhatsApp <span aria-hidden="true">↗</span></a>
             <div class="contact-links">
