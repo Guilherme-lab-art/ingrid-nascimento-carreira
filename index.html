@@ -177,71 +177,37 @@
     .speaking-note { max-width: 34ch; margin: 0; color: rgba(244,240,232,.72); font-size: 12px; line-height: 1.65; }
     .speaking-location { margin: 0; color: rgba(244,240,232,.52); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 
-    /* Content architecture: ready for real proof, video, resources and conversion without inventing any results. */
-    .service-detail { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 29px calc(var(--gutter) + 41px); color: var(--orange); font-size: 9px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-    .service-detail::after { content: "↗"; font-size: 14px; line-height: 1; }
-    .service-detail:hover { color: var(--paper); }
+    /* Lean conversion layer: real proof and a simple next step, without overwhelming the visitor. */
+    .proof { padding: 70px var(--gutter); color: var(--ink); background: var(--paper); }
+    .proof-head { display: grid; gap: 16px; max-width: 650px; }
+    .proof-head .section-title { max-width: 8ch; }
+    .proof-head .section-copy { max-width: 48ch; }
+    .quote-grid { display: grid; gap: 10px; margin-top: 34px; }
+    .quote-slot { min-height: 190px; display: grid; align-content: space-between; gap: 22px; padding: 20px; border: 1px solid var(--dark-line); background: rgba(255,255,255,.18); }
+    .slot-index { color: var(--orange); font-size: 8px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .quote-slot blockquote { margin: 0; color: var(--ink); font: 400 clamp(24px, 6vw, 43px)/.96 var(--serif); letter-spacing: -.04em; }
+    .quote-slot cite { color: rgba(8,8,8,.53); font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
+    .proof-disclaimer { margin: 14px 0 0; color: rgba(8,8,8,.47); font-size: 9px; line-height: 1.5; }
 
-    .video-invite { padding: 76px var(--gutter); color: var(--paper); background: var(--ink); }
-    .video-invite-grid { display: grid; gap: 36px; }
-    .video-invite-copy { display: grid; align-content: start; gap: 22px; }
-    .video-invite-copy .section-title { max-width: 8.6ch; }
-    .video-invite-copy .section-copy { max-width: 470px; color: rgba(241,236,228,.72); }
-    .content-slot-note { margin: 0; color: rgba(241,236,228,.52); font-size: 10px; line-height: 1.55; }
-    .video-slot { position: relative; min-height: min(124vw, 530px); display: grid; align-content: space-between; padding: 21px; overflow: hidden; border: 1px solid rgba(241,236,228,.34); background: linear-gradient(145deg, rgba(241,236,228,.08), transparent 52%), #111; }
-    .video-slot::before { content: "▶"; width: 59px; height: 59px; display: grid; place-items: center; border: 1px solid var(--orange); border-radius: 50%; color: var(--orange); font-size: 19px; }
-    .video-slot::after { content: "VÍDEO"; position: absolute; right: -8px; bottom: -18px; color: rgba(241,236,228,.07); font: 400 150px/.7 var(--display); letter-spacing: -.02em; }
-    .slot-label { position: relative; z-index: 1; display: grid; gap: 6px; max-width: 24ch; color: var(--paper); font-size: 11px; font-weight: 800; letter-spacing: .1em; line-height: 1.45; text-transform: uppercase; }
-    .slot-label small { color: rgba(241,236,228,.56); font-size: 8px; font-weight: 700; letter-spacing: .12em; }
-
-    .proof { padding: 78px var(--gutter); color: var(--ink); background: var(--paper); }
-    .proof-head { display: grid; gap: 23px; max-width: 780px; }
-    .proof-head .section-title { max-width: 10ch; }
-    .proof-head .section-copy { max-width: 560px; }
-    .edit-notice { margin: 0; padding: 12px 14px; border-left: 2px solid var(--orange); background: rgba(8,8,8,.045); color: rgba(8,8,8,.68); font-size: 10px; line-height: 1.55; }
-    .quote-grid { display: grid; gap: 12px; margin-top: 42px; }
-    .quote-slot { min-height: 250px; display: grid; align-content: space-between; gap: 30px; padding: 22px; border: 1px solid var(--dark-line); background: rgba(255,255,255,.28); }
-    .slot-index { color: var(--orange); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-    .quote-slot blockquote { margin: 0; color: rgba(8,8,8,.6); font: 400 clamp(24px, 6.5vw, 46px)/.96 var(--serif); letter-spacing: -.04em; }
-    .quote-slot cite { color: rgba(8,8,8,.58); font-size: 9px; font-style: normal; font-weight: 800; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
-    .case-grid { display: grid; gap: 12px; margin-top: 42px; }
-    .case-slot { min-height: 250px; display: grid; align-content: space-between; gap: 24px; padding: 22px; color: var(--paper); background: var(--ink-2); }
-    .case-slot .slot-index { color: var(--orange); }
-    .case-slot h3 { margin: 0; font: 400 clamp(32px, 8vw, 62px)/.88 var(--serif); letter-spacing: -.045em; }
-    .case-slot p { max-width: 34ch; margin: 0; color: rgba(241,236,228,.62); font-size: 11px; line-height: 1.65; }
-    .media-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 42px; }
-    .media-slot { min-height: 145px; display: grid; place-items: end start; padding: 12px; border: 1px dashed rgba(8,8,8,.35); background: var(--paper-dim); color: rgba(8,8,8,.66); font-size: 8px; font-weight: 900; letter-spacing: .11em; line-height: 1.4; text-transform: uppercase; }
-
-    .diagnostic { padding: 78px var(--gutter); color: var(--ink); background: var(--surface); }
-    .diagnostic-grid { display: grid; gap: 34px; }
-    .diagnostic-copy { display: grid; gap: 23px; }
-    .diagnostic-copy .section-title { max-width: 8.5ch; }
-    .diagnostic-copy .section-copy { max-width: 490px; }
-    .diagnostic-panel { padding: 18px; border: 1px solid rgba(8,8,8,.25); background: rgba(255,255,255,.19); }
-    .diagnostic-options { display: grid; gap: 8px; }
-    .diagnostic-option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 16px 13px; border: 1px solid rgba(8,8,8,.3); border-radius: 0; background: transparent; color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .04em; text-align: left; transition: background .25s ease, color .25s ease, transform .25s ease; }
-    .diagnostic-option::after { content: "↗"; color: var(--orange); font-size: 17px; font-weight: 400; }
-    .diagnostic-option:hover, .diagnostic-option.is-selected { background: var(--ink); color: var(--paper); transform: translateX(4px); }
-    .diagnostic-result { min-height: 44px; margin: 17px 0; color: rgba(8,8,8,.68); font-size: 12px; line-height: 1.6; }
+    .diagnostic { padding: 70px var(--gutter); color: var(--ink); background: var(--surface); }
+    .diagnostic-grid { display: grid; gap: 27px; }
+    .diagnostic-copy { display: grid; gap: 16px; }
+    .diagnostic-copy .section-title { max-width: 8ch; }
+    .diagnostic-copy .section-copy { max-width: 42ch; }
+    .diagnostic-panel { padding: 16px; border: 1px solid rgba(8,8,8,.25); background: rgba(255,255,255,.18); }
+    .diagnostic-options { display: grid; gap: 7px; }
+    .diagnostic-option { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 14px 12px; border: 1px solid rgba(8,8,8,.3); border-radius: 0; background: transparent; color: var(--ink); font-size: 11px; font-weight: 800; letter-spacing: .04em; text-align: left; transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .diagnostic-option::after { content: "↗"; color: var(--orange); font-size: 16px; font-weight: 400; }
+    .diagnostic-option:hover, .diagnostic-option.is-selected { background: var(--ink); color: var(--paper); transform: translateX(3px); }
+    .diagnostic-result { min-height: 38px; margin: 14px 0; color: rgba(8,8,8,.68); font-size: 11px; line-height: 1.55; }
     .diagnostic-cta[aria-disabled="true"] { opacity: .5; pointer-events: none; }
-
-    .resource-library { padding: 78px var(--gutter); color: var(--ink); background: var(--paper); }
-    .resource-head { display: grid; gap: 22px; max-width: 760px; }
-    .resource-head .section-title { max-width: 9ch; }
-    .resource-grid { display: grid; gap: 12px; margin-top: 42px; }
-    .resource-card { min-height: 298px; display: grid; align-content: space-between; gap: 30px; padding: 22px; border: 1px solid var(--dark-line); background: rgba(255,255,255,.23); }
-    .resource-type { color: var(--orange); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
-    .resource-card h3 { max-width: 8ch; margin: 0; font: 400 clamp(32px, 8vw, 54px)/.88 var(--serif); letter-spacing: -.045em; }
-    .resource-card p { margin: 0; color: rgba(8,8,8,.63); font-size: 11px; line-height: 1.6; }
-    .resource-action { display: inline-flex; align-items: center; gap: 8px; width: max-content; color: var(--ink); font-size: 9px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
-    .resource-action::after { content: "↗"; color: var(--orange); font-size: 14px; }
-    .resource-action:hover { color: var(--orange); }
 
     .whatsapp-float { position: fixed; z-index: 35; right: max(15px, var(--gutter)); bottom: 16px; display: inline-flex; align-items: center; gap: 8px; min-height: 43px; padding: 0 14px; border: 1px solid var(--paper); border-radius: 99px; color: var(--paper); background: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,.19); font-size: 9px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; transition: background .25s ease, color .25s ease, transform .25s ease, opacity .2s ease; }
     .whatsapp-float::before { content: "↗"; color: var(--orange); font-size: 16px; line-height: 1; }
     .whatsapp-float:hover { background: var(--orange); color: var(--ink); transform: translateY(-3px); }
     .whatsapp-float:hover::before { color: var(--ink); }
-    .menu-open .whatsapp-float { opacity: 0; pointer-events: none; }
+    .menu-open .whatsapp-float, .whatsapp-float.is-hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }
+
 
     /* About: the frame sequence owns the full viewport, then the text follows as the visitor keeps scrolling. */
     .about { overflow: visible; padding: 0 0 78px; color: var(--paper); background: var(--ink); }
@@ -343,16 +309,11 @@
       .speaking-photo { aspect-ratio: auto; min-height: 510px; }
       .speaking-copy { min-height: 510px; padding: 45px clamp(38px, 5vw, 82px); }
       .speaking-title { max-width: 8.5ch; }
-      .video-invite { padding-top: 120px; padding-bottom: 120px; }
-      .video-invite-grid { grid-template-columns: minmax(0, .83fr) minmax(420px, .9fr); align-items: stretch; gap: clamp(60px, 9vw, 150px); }
-      .video-slot { min-height: 590px; }
-      .proof, .diagnostic, .resource-library { padding-top: 120px; padding-bottom: 120px; }
-      .quote-grid, .case-grid, .resource-grid { grid-template-columns: repeat(3, 1fr); }
-      .quote-slot, .case-slot, .resource-card { min-height: 330px; }
-      .media-slots { grid-template-columns: repeat(3, 1fr); }
-      .media-slot { min-height: 245px; }
+      .proof, .diagnostic { padding-top: 112px; padding-bottom: 112px; }
+      .quote-grid { grid-template-columns: repeat(3, 1fr); }
+      .quote-slot { min-height: 245px; }
       .diagnostic-grid { grid-template-columns: minmax(0, .9fr) minmax(380px, .72fr); align-items: start; gap: clamp(60px, 10vw, 160px); }
-      .diagnostic-panel { padding: 26px; }
+      .diagnostic-panel { padding: 24px; }
       .about { padding-top: 0; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
       .about-grid--scroll { display: block; }
@@ -459,8 +420,7 @@
           <h2 class="section-title challenge-heading" id="challenge-title" data-word-motion>Você não precisa caminhar sem <em>direção.</em></h2>
         </div>
         <div class="challenge-content reveal">
-          <p class="section-copy">Às vezes, o currículo já não representa quem você é. Em outras, o LinkedIn não traduz o valor que você entrega — ou uma entrevista parece não mostrar o seu potencial.</p>
-          <p class="section-copy">Antes de procurar apenas uma nova oportunidade, vale olhar para a forma como você se posiciona, comunica sua trajetória e escolhe os próximos passos.</p>
+          <p class="section-copy">Quando currículo, LinkedIn ou entrevista deixam de traduzir seu momento, organizar a sua trajetória faz diferença.</p>
           <div class="challenge-signal">
             <div><strong>Não é só</strong><span>recolocação.</span></div>
             <div><strong>É sobre</strong><span>posicionamento, confiança e direção.</span></div>
@@ -475,31 +435,31 @@
           <p class="kicker orange"><span class="section-number">02</span> Como Ingrid pode ajudar</p>
           <h2 class="section-title" id="services-title" data-word-motion>Estratégia para a sua <em>próxima versão.</em></h2>
         </div>
-        <p class="section-copy reveal">Cada serviço parte do seu momento e do objetivo que você quer alcançar. O foco é construir uma apresentação profissional mais coerente, segura e intencional.</p>
+        <p class="section-copy reveal">Serviços para organizar sua apresentação e seus próximos passos.</p>
       </div>
       <ul class="service-list">
         <li class="service reveal">
           <details open>
             <summary><span class="service-index">01</span><span class="service-name">Currículo <em>estratégico</em></span><span class="service-plus" aria-hidden="true">+</span></summary>
-            <p class="service-copy">Para apresentar experiências e competências de forma clara, relevante e alinhada aos seus objetivos profissionais.</p><a class="service-detail" href="servicos/curriculo-estrategico.html">Ver página do serviço</a>
+            <p class="service-copy">Para apresentar experiências e competências de forma clara, relevante e alinhada aos seus objetivos profissionais.</p>
           </details>
         </li>
         <li class="service reveal">
           <details>
             <summary><span class="service-index">02</span><span class="service-name">Posicionamento &amp; <em>LinkedIn</em></span><span class="service-plus" aria-hidden="true">+</span></summary>
-            <p class="service-copy">Orientação para fortalecer a sua apresentação profissional, destacar competências e comunicar melhor o valor que você entrega.</p><a class="service-detail" href="servicos/posicionamento-linkedin.html">Ver página do serviço</a>
+            <p class="service-copy">Orientação para fortalecer a sua apresentação profissional, destacar competências e comunicar melhor o valor que você entrega.</p>
           </details>
         </li>
         <li class="service reveal">
           <details>
             <summary><span class="service-index">03</span><span class="service-name">Preparação para <em>entrevistas</em></span><span class="service-plus" aria-hidden="true">+</span></summary>
-            <p class="service-copy">Preparação para contar a sua trajetória, suas competências e experiências com mais clareza e segurança diante de oportunidades.</p><a class="service-detail" href="servicos/preparacao-entrevistas.html">Ver página do serviço</a>
+            <p class="service-copy">Preparação para contar a sua trajetória, suas competências e experiências com mais clareza e segurança diante de oportunidades.</p>
           </details>
         </li>
         <li class="service reveal">
           <details>
             <summary><span class="service-index">04</span><span class="service-name">Direcionamento de <em>carreira</em></span><span class="service-plus" aria-hidden="true">+</span></summary>
-            <p class="service-copy">Um espaço de análise para compreender objetivos profissionais e definir os próximos passos com mais intenção.</p><a class="service-detail" href="servicos/direcionamento-carreira.html">Ver página do serviço</a>
+            <p class="service-copy">Um espaço de análise para compreender objetivos profissionais e definir os próximos passos com mais intenção.</p>
           </details>
         </li>
       </ul>
@@ -511,7 +471,7 @@
           <p class="kicker"><span class="section-number">03</span> A abordagem</p>
           <h2 class="section-title" id="approach-title" data-word-motion>O próximo passo começa ao olhar sua história com <em>estratégia.</em></h2>
         </div>
-        <p class="approach-note reveal">A consultoria é um processo de conversa, escuta e construção. O caminho é ajustado ao seu contexto, ao seu momento e à forma como você quer se mover profissionalmente.</p>
+        <p class="approach-note reveal">Escuta, clareza e estratégia para o seu momento.</p>
       </div>
       <div class="approach-steps">
         <article class="step reveal"><span class="step-number">01 / 03</span><div><h3>Entender o momento.</h3><p>Começamos pelo que está acontecendo agora e pelo que precisa ganhar clareza.</p></div></article>
@@ -534,48 +494,18 @@
     </section>
 
 
-    <section class="video-invite" id="video" aria-labelledby="video-title">
-      <div class="video-invite-grid">
-        <div class="video-invite-copy reveal">
-          <p class="kicker orange"><span class="section-number">VÍDEO</span> Espaço reservado</p>
-          <h2 class="section-title" id="video-title" data-word-motion>Quando você quiser, a sua voz pode estar <em>aqui.</em></h2>
-          <p class="section-copy">Esta área já está preparada para receber um vídeo curto de apresentação. Um vídeo gravado por você, com o seu tom e a sua história, cria uma conexão que nenhum texto substitui.</p>
-          <p class="content-slot-note">Sugestão de produção: 30–45 segundos, com boa luz, áudio limpo e uma mensagem simples sobre como você trabalha. Não há vídeo publicado neste espaço ainda.</p>
-        </div>
-        <div class="video-slot reveal" role="img" aria-label="Espaço reservado para um vídeo de apresentação de Ingrid Nascimento">
-          <div class="slot-label">
-            <span>Inserir vídeo de apresentação</span>
-            <small>Formatos recomendados: vertical 9:16 ou horizontal 16:9</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="proof" id="historias" aria-labelledby="proof-title">
       <div class="proof-head reveal">
-        <p class="kicker orange"><span class="section-number">PROVA SOCIAL</span> Conteúdo a preencher</p>
-        <h2 class="section-title" id="proof-title" data-word-motion>Histórias reais merecem espaço para <em>aparecer.</em></h2>
-        <p class="section-copy">A estrutura abaixo está pronta para receber depoimentos, casos e registros autorizados. Nenhum resultado ou fala foi inventado: inclua somente conteúdos que você tenha permissão para publicar.</p>
-        <p class="edit-notice">Antes de publicar: peça autorização por escrito, remova dados sensíveis e prefira relatos específicos sobre processo, clareza ou experiência — sem prometer contratação, promoção ou resultados garantidos.</p>
+        <p class="kicker orange"><span class="section-number">FEEDBACKS</span> Relatos reais</p>
+        <h2 class="section-title" id="proof-title" data-word-motion>Feedbacks <em>reais.</em></h2>
+        <p class="section-copy">Trechos curtos enviados por clientes após análises e atendimentos.</p>
       </div>
-
-      <div class="quote-grid" aria-label="Espaços para depoimentos">
-        <article class="quote-slot reveal"><span class="slot-index">Depoimento 01 · preencher</span><blockquote>“[Insira aqui uma fala autorizada de cliente.]”</blockquote><cite>[Nome autorizado] · [Cargo ou área]</cite></article>
-        <article class="quote-slot reveal"><span class="slot-index">Depoimento 02 · preencher</span><blockquote>“[Insira aqui uma fala autorizada de cliente.]”</blockquote><cite>[Nome autorizado] · [Cargo ou área]</cite></article>
-        <article class="quote-slot reveal"><span class="slot-index">Depoimento 03 · preencher</span><blockquote>“[Insira aqui uma fala autorizada de cliente.]”</blockquote><cite>[Nome autorizado] · [Cargo ou área]</cite></article>
+      <div class="quote-grid" aria-label="Feedbacks de clientes">
+        <article class="quote-slot reveal"><span class="slot-index">Análise de currículo</span><blockquote>“A análise tirou minhas dúvidas sobre o que incluir e o que não incluir no currículo.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
+        <article class="quote-slot reveal"><span class="slot-index">Atendimento</span><blockquote>“Atendimento solícito, objetivo e proativo. Gostei bastante do serviço.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
+        <article class="quote-slot reveal"><span class="slot-index">Revisão de currículo</span><blockquote>“Você soube destacar os principais pontos do meu currículo.”</blockquote><cite>Feedback de cliente · identidade preservada</cite></article>
       </div>
-
-      <div class="case-grid" aria-label="Espaços para casos de trabalho">
-        <article class="case-slot reveal"><span class="slot-index">Caso 01 · preencher</span><h3>[Título do caso ou contexto]</h3><p>Inclua: momento profissional, foco do trabalho e retorno autorizado. Não publique informações confidenciais.</p></article>
-        <article class="case-slot reveal"><span class="slot-index">Caso 02 · preencher</span><h3>[Título do caso ou contexto]</h3><p>Inclua: momento profissional, foco do trabalho e retorno autorizado. Não publique informações confidenciais.</p></article>
-        <article class="case-slot reveal"><span class="slot-index">Caso 03 · preencher</span><h3>[Título do caso ou contexto]</h3><p>Inclua: momento profissional, foco do trabalho e retorno autorizado. Não publique informações confidenciais.</p></article>
-      </div>
-
-      <div class="media-slots reveal" aria-label="Espaços reservados para fotos">
-        <div class="media-slot">Foto 01<br>evento ou palestra<br>recomendado: 4:5</div>
-        <div class="media-slot">Foto 02<br>bastidor autorizado<br>recomendado: 4:5</div>
-        <div class="media-slot">Foto 03<br>registro profissional<br>recomendado: 4:5</div>
-      </div>
+      <p class="proof-disclaimer">Trechos editados apenas para leitura no site, mantendo o sentido dos feedbacks recebidos.</p>
     </section>
 
     <section class="about" id="sobre" aria-labelledby="about-title">
@@ -589,7 +519,7 @@
           <div class="about-content reveal">
             <p class="kicker orange"><span class="section-number">04</span> Sobre Ingrid</p>
             <h2 class="section-title" id="about-title" data-word-motion>Carreira é sobre pessoas — e sobre o espaço que elas escolhem <em>ocupar.</em></h2>
-            <p class="section-copy">Ingrid Nascimento atua em Recursos Humanos, consultoria de carreira e desenvolvimento profissional. Seu trabalho une escuta humana e visão estratégica para ajudar profissionais a enxergarem possibilidades e se posicionarem com mais clareza.</p>
+            <p class="section-copy">Ingrid une escuta humana e visão estratégica para apoiar decisões, posicionamento e trajetória profissional.</p>
             <ul class="about-credentials" aria-label="Informações profissionais">
               <li><strong>Atuação</strong>Recursos Humanos, consultoria de carreira e desenvolvimento profissional.</li>
               <li><strong>Formato</strong>Atendimento personalizado e online.</li>
@@ -604,9 +534,9 @@
     <section class="diagnostic" id="diagnostico" aria-labelledby="diagnostic-title">
       <div class="diagnostic-grid">
         <div class="diagnostic-copy reveal">
-          <p class="kicker"><span class="section-number">DIAGNÓSTICO</span> Primeiro filtro</p>
-          <h2 class="section-title" id="diagnostic-title" data-word-motion>Em qual ponto você quer ganhar <em>clareza?</em></h2>
-          <p class="section-copy">Escolha o assunto que mais se aproxima do seu momento. Esta etapa apenas organiza a conversa e prepara uma mensagem para o WhatsApp — ela não substitui uma análise individual.</p>
+          <p class="kicker"><span class="section-number">DIAGNÓSTICO</span> Primeiro passo</p>
+          <h2 class="section-title" id="diagnostic-title" data-word-motion>Por onde <em>começamos?</em></h2>
+          <p class="section-copy">Escolha um assunto e continue pelo WhatsApp.</p>
         </div>
         <div class="diagnostic-panel reveal">
           <div class="diagnostic-options" role="group" aria-label="Escolha um assunto">
@@ -621,25 +551,13 @@
       </div>
     </section>
 
-    <section class="resource-library" id="materiais" aria-labelledby="resources-title">
-      <div class="resource-head reveal">
-        <p class="kicker orange"><span class="section-number">MATERIAIS</span> Estrutura pronta</p>
-        <h2 class="section-title" id="resources-title" data-word-motion>Conteúdos que você pode construir com <em>calma.</em></h2>
-        <p class="section-copy">Estes cards são espaços para seus futuros materiais. Até os arquivos estarem prontos, os botões apenas abrem uma conversa no WhatsApp para a pessoa demonstrar interesse — sem prometer um download que ainda não existe.</p>
-      </div>
-      <div class="resource-grid">
-        <article class="resource-card reveal"><span class="resource-type">PDF · a criar</span><div><h3>[Checklist de LinkedIn]</h3><p>Inclua aqui o tema, a capa e uma breve descrição quando este material estiver pronto.</p></div><a class="resource-action" href="https://wa.me/5511971843486?text=Ol%C3%A1%2C%20Ingrid!%20Quero%20ser%20avisado(a)%20quando%20o%20material%20Checklist%20de%20LinkedIn%20estiver%20dispon%C3%ADvel." target="_blank" rel="noopener noreferrer" data-resource="Checklist de LinkedIn" data-track="resource_interest">Quero ser avisado(a)</a></article>
-        <article class="resource-card reveal"><span class="resource-type">GUIA · a criar</span><div><h3>[Guia de entrevista]</h3><p>Inclua aqui o tema, a capa e uma breve descrição quando este material estiver pronto.</p></div><a class="resource-action" href="https://wa.me/5511971843486?text=Ol%C3%A1%2C%20Ingrid!%20Quero%20ser%20avisado(a)%20quando%20o%20material%20Guia%20de%20entrevista%20estiver%20dispon%C3%ADvel." target="_blank" rel="noopener noreferrer" data-resource="Guia de entrevista" data-track="resource_interest">Quero ser avisado(a)</a></article>
-        <article class="resource-card reveal"><span class="resource-type">ROTEIRO · a criar</span><div><h3>[Roteiro de carreira]</h3><p>Inclua aqui o tema, a capa e uma breve descrição quando este material estiver pronto.</p></div><a class="resource-action" href="https://wa.me/5511971843486?text=Ol%C3%A1%2C%20Ingrid!%20Quero%20ser%20avisado(a)%20quando%20o%20material%20Roteiro%20de%20carreira%20estiver%20dispon%C3%ADvel." target="_blank" rel="noopener noreferrer" data-resource="Roteiro de carreira" data-track="resource_interest">Quero ser avisado(a)</a></article>
-      </div>
-    </section>
 
     <section class="contact" id="contato" aria-labelledby="contact-title">
       <div class="contact-grid">
         <div class="contact-copy reveal">
           <p class="kicker orange"><span class="section-number">05</span> Contato</p>
           <h2 class="section-title" id="contact-title" data-word-motion>Vamos abrir espaço para o seu <em>próximo capítulo.</em></h2>
-          <p class="section-copy">Se você quer conversar sobre currículo, LinkedIn, entrevistas ou sobre a direção da sua carreira, o primeiro passo pode começar por uma mensagem.</p>
+          <p class="section-copy">O próximo passo pode começar por uma mensagem.</p>
           <div class="contact-direct">
             <a class="button" href="https://wa.me/5511971843486?text=Ol%C3%A1%2C%20Ingrid!%20Quero%20conversar%20sobre%20minha%20carreira." target="_blank" rel="noopener noreferrer" data-track="contact_whatsapp">Chamar no WhatsApp <span aria-hidden="true">↗</span></a>
             <div class="contact-links">
@@ -719,6 +637,14 @@
       document.querySelectorAll('[data-track]').forEach(item => {
         item.addEventListener('click', () => track(item.dataset.track, { resource: item.dataset.resource || undefined }));
       });
+      // Keep the feedbacks readable; the floating button returns as soon as the section leaves view.
+      const floatingWhatsApp = document.querySelector('.whatsapp-float');
+      const feedbacks = document.querySelector('#historias');
+      if (floatingWhatsApp && feedbacks && 'IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+          floatingWhatsApp.classList.toggle('is-hidden', entries[0].isIntersecting);
+        }, { threshold: .08 }).observe(feedbacks);
+      }
 
       if (!reduced.matches && 'IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries, current) => {

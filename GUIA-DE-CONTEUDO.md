@@ -5,11 +5,10 @@ Este site já tem uma estrutura completa de conversão. Ele **não publica resul
 ## Ordem recomendada de preenchimento
 
 1. **Serviços** — preencha as quatro páginas em `servicos/`.
-2. **Depoimentos autorizados** — substitua os três blocos da seção “Histórias reais”.
-3. **Casos** — inclua somente contextos anonimizados ou autorizados.
-4. **Vídeo** — substitua o espaço de vídeo quando gravar um material curto.
-5. **Materiais gratuitos** — publique os PDFs e altere os botões de “Quero ser avisado(a)” para links reais.
-6. **Fotos** — complete a galeria de espaços reservados.
+2. **Depoimentos autorizados** — revise os três trechos já selecionados na seção “Feedbacks reais”.
+3. **Vídeo** — grave um material curto antes de pedir para recolocar esta seção no site.
+4. **Materiais gratuitos** — publique os PDFs antes de criar cards de download.
+5. **Fotos** — envie registros profissionais e autorizados para uma galeria futura.
 
 ---
 
@@ -38,16 +37,9 @@ Em cada página, troque todos os textos entre colchetes:
 
 ### 2. Depoimentos e casos
 
-A seção **“Histórias reais”** no `index.html` possui três cartões de depoimento e três cartões de casos.
+A seção **“Feedbacks reais”** no `index.html` possui três trechos curtos selecionados dos feedbacks enviados. Eles usam identidade preservada para proteger clientes.
 
-Para cada depoimento, use:
-
-- uma fala curta autorizada;
-- nome somente se houver permissão;
-- cargo/área, se fizer sentido;
-- data ou contexto opcional.
-
-Para cada caso, prefira este formato:
+Antes de publicar nomes, fotos de conversas ou @ de clientes, confirme a autorização. Para futuros casos, prefira este formato:
 
 - momento/contexto inicial;
 - tema trabalhado;
@@ -56,7 +48,7 @@ Para cada caso, prefira este formato:
 
 ### 3. Vídeo de apresentação
 
-Há um espaço reservado na seção **“Vídeo”**.
+A seção de vídeo foi retirada da página principal para deixá-la mais leve. Recoloque somente quando o vídeo estiver pronto.
 
 Sugestão de roteiro — 30 a 45 segundos:
 
@@ -94,13 +86,13 @@ Para cada foto nova:
 
 ### 5. Materiais gratuitos
 
-Os três cards atuais são apenas estruturas:
+Quando os materiais existirem, crie cards simples para eles:
 
 - `[Checklist de LinkedIn]`
 - `[Guia de entrevista]`
 - `[Roteiro de carreira]`
 
-Enquanto não houver PDF real, os botões levam para o WhatsApp para a pessoa demonstrar interesse. Quando o arquivo estiver pronto:
+Não anuncie um PDF antes de ele existir. Quando o arquivo estiver pronto:
 
 1. salve o PDF em `assets/materiais/`;
 2. altere o texto e o botão do card correspondente;
@@ -182,7 +174,7 @@ Evite criar artigos em quantidade sem profundidade. Um bom conteúdo por mês é
 - depoimentos autorizados;
 - uma foto profissional atualizada para cada página de serviço;
 - uma sessão de perguntas frequentes com respostas reais;
-- materiais próprios em PDF;
+- materiais próprios em PDF, somente quando concluídos;
 - uma política de privacidade quando houver captação de e-mail ou analytics.
 
 ### Eu não faria
