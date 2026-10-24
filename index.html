@@ -16,10 +16,10 @@
 
     :root {
       --ink: #080808;
-      --ink-2: #141414;
-      --paper: #f6f2ec;
-      --paper-dim: #e9e2d8;
-      --surface: #eee8df;
+      --ink-2: #1c1b19;
+      --paper: #f1ece4;
+      --paper-dim: #d9d0c4;
+      --surface: #ccc0b1;
       --orange: #f15b3c;
       --hairline: rgba(255, 253, 250, .22);
       --dark-line: rgba(8, 8, 8, .17);
@@ -127,12 +127,12 @@
     .challenge-signal strong { color: var(--orange); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 
     /* Services: a numbered editorial list, not generic cards */
-    .services { padding: 72px var(--gutter) 0; color: var(--ink); background: var(--paper-dim); }
+    .services { padding: 72px var(--gutter) 0; color: var(--paper); background: var(--ink-2); }
     .services-head { display: grid; gap: 25px; padding-bottom: 48px; }
     .services-head .section-title { max-width: 11ch; }
-    .services-head .section-copy { max-width: 430px; color: rgba(8,8,8,.68); }
-    .service-list { margin: 0 calc(var(--gutter) * -1); padding: 0; list-style: none; border-top: 1px solid var(--dark-line); }
-    .service { border-bottom: 1px solid var(--dark-line); }
+    .services-head .section-copy { max-width: 430px; color: rgba(241,236,228,.72); }
+    .service-list { margin: 0 calc(var(--gutter) * -1); padding: 0; list-style: none; border-top: 1px solid var(--hairline); }
+    .service { border-bottom: 1px solid var(--hairline); }
     .service details { width: 100%; }
     .service summary { position: relative; display: grid; grid-template-columns: 29px 1fr 24px; gap: 12px; align-items: center; min-height: 99px; padding: 18px var(--gutter); cursor: pointer; list-style: none; }
     .service summary::-webkit-details-marker { display: none; }
@@ -141,8 +141,8 @@
     .service-name em { color: var(--orange); font-style: italic; }
     .service-plus { justify-self: end; font-size: 24px; font-weight: 300; line-height: 1; transition: transform .25s ease; }
     .service details[open] .service-plus { color: var(--orange); transform: rotate(45deg); }
-    .service-copy { max-width: 550px; margin: -3px 55px 27px calc(var(--gutter) + 41px); color: rgba(8,8,8,.68); font-size: 13px; line-height: 1.67; }
-    .service details[open] { background: var(--paper); }
+    .service-copy { max-width: 550px; margin: -3px 55px 27px calc(var(--gutter) + 41px); color: rgba(241,236,228,.72); font-size: 13px; line-height: 1.67; }
+    .service details[open] { background: #292723; }
 
     /* Approach */
     .approach { padding: 77px var(--gutter) 79px; color: var(--ink); background: var(--surface); }
