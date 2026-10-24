@@ -102,24 +102,28 @@
     .menu-foot a { transition: color .2s ease; }
     .menu-foot a:hover { color: var(--orange); }
 
-    /* Hero, intentionally designed from mobile first */
+    /* Hero: graphic editorial hierarchy — massive type, one clear action and Ingrid's portrait carrying the other half of the frame. */
     .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 57%) minmax(0, 43%); overflow: hidden; background: var(--ink); isolation: isolate; }
-    .hero::after { content: ""; position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 9px; background: var(--orange); }
-    .hero-copy { z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); }
+    .hero::before { content: ""; position: absolute; z-index: 1; top: 20px; right: 0; width: 43%; height: 33px; background: var(--orange); pointer-events: none; }
+    .hero::after { content: ""; position: absolute; z-index: 4; right: 0; bottom: 0; left: 0; height: 9px; background: var(--orange); }
+    .hero-copy { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); border-right: 1px solid rgba(244,240,232,.14); }
+    .hero-copy::after { content: "DIREÇÃO / PRESENÇA"; position: absolute; top: 79px; right: 8px; color: rgba(244,240,232,.34); font-size: 7px; font-weight: 900; letter-spacing: .13em; writing-mode: vertical-rl; }
     .hero-copy__intro { align-self: start; }
-    .hero-label { margin: 0 0 15px; color: var(--orange); font-size: 8px; font-weight: 800; letter-spacing: .13em; line-height: 1.3; text-transform: uppercase; }
-    .hero-title { margin: 0; color: var(--paper); font: 400 clamp(58px, 17.2vw, 188px)/.78 var(--display); letter-spacing: -.015em; text-transform: uppercase; }
+    .hero-label { display: flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--orange); font-size: 8px; font-weight: 800; letter-spacing: .13em; line-height: 1.3; text-transform: uppercase; }
+    .hero-label::before { content: ""; flex: 0 0 17px; height: 1px; background: currentColor; }
+    .hero-title { margin: 0; color: var(--paper); font: 400 clamp(58px, 17.2vw, 188px)/.75 var(--display); letter-spacing: .005em; text-transform: uppercase; }
     .hero-title span { display: block; }
     .hero-title em { color: var(--orange); font-style: normal; }
-    .hero-summary { margin: 23px 0 0; max-width: 28ch; color: rgba(244,240,232,.73); font-size: 11px; line-height: 1.57; }
-    .hero-action { align-self: start; }
-    .hero-action .button { font-size: 9px; }
-    .hero-note { max-width: 24ch; margin: 13px 0 0; color: rgba(244,240,232,.47); font-size: 8px; line-height: 1.55; }
-    .hero-portrait { position: relative; overflow: hidden; min-height: 100%; background: #0c0c0b; border-left: 1px solid rgba(244,240,232,.08); }
-    .hero-portrait::before { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,8,8,.33), transparent 35%), linear-gradient(0deg, rgba(8,8,8,.56), transparent 23%); }
-    .hero-portrait img { position: absolute; top: 54px; left: 0; width: 200%; max-width: none; height: auto; transform: translateX(-50%); filter: saturate(.93) contrast(1.02); }
-    .portrait-label { position: absolute; z-index: 3; right: 9px; bottom: 35px; color: rgba(244,240,232,.76); font-size: 7px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
-    .hero-scroll { position: absolute; z-index: 4; right: 16px; bottom: 20px; color: rgba(244,240,232,.5); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .hero-summary { margin: 25px 0 0; max-width: 25ch; color: rgba(244,240,232,.7); font-size: 11px; line-height: 1.57; }
+    .hero-action { align-self: start; max-width: 236px; padding-top: 13px; border-top: 1px solid rgba(244,240,232,.24); }
+    .hero-action .button { background: var(--orange); color: var(--ink); font-size: 9px; }
+    .hero-action .button:hover { background: var(--paper); }
+    .hero-note { max-width: 25ch; margin: 13px 0 0; color: rgba(244,240,232,.51); font-size: 8px; line-height: 1.55; }
+    .hero-portrait { position: relative; z-index: 2; overflow: hidden; min-height: 100%; background: #0c0c0b; }
+    .hero-portrait::before { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,8,8,.55), transparent 43%), linear-gradient(0deg, rgba(8,8,8,.66), transparent 27%); }
+    .hero-portrait img { position: absolute; top: 54px; left: 0; width: 200%; max-width: none; height: auto; transform: translateX(-50%); filter: saturate(.9) contrast(1.08); }
+    .portrait-label { position: absolute; z-index: 3; right: 9px; bottom: 35px; color: rgba(244,240,232,.78); font-size: 7px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .hero-scroll { position: absolute; z-index: 5; right: 16px; bottom: 20px; color: rgba(244,240,232,.62); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 
     .ticker { overflow: hidden; display: flex; align-items: center; min-height: 47px; color: var(--ink); background: var(--paper-dim); border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); white-space: nowrap; }
     .ticker__track { display: flex; width: max-content; animation: ticker 22s linear infinite; }
@@ -306,10 +310,13 @@
 
     @media (min-width: 700px) {
       .hero { grid-template-columns: minmax(0, 60%) minmax(360px, 40%); }
+      .hero::before { top: 27px; width: 40%; height: 42px; }
       .hero-copy { padding: 116px clamp(38px, 7vw, 120px) 54px var(--gutter); }
+      .hero-copy::after { top: 97px; right: 20px; font-size: 8px; }
       .hero-label { max-width: none; font-size: 10px; }
       .hero-title { font-size: clamp(105px, 10.5vw, 188px); }
       .hero-summary { max-width: 38ch; font-size: 14px; }
+      .hero-action { max-width: 290px; }
       .hero-note { max-width: 37ch; font-size: 10px; }
       .hero-portrait img { top: 0; width: auto; height: 150%; transform: translateX(-50%); }
       .portrait-label { right: 21px; bottom: 48px; font-size: 8px; }
