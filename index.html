@@ -104,8 +104,6 @@
 
     /* Hero, intentionally designed from mobile first */
     .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 57%) minmax(0, 43%); overflow: hidden; background: var(--ink); isolation: isolate; }
-    /* A second, quieter map lives only in the hero: it suggests possibility without competing with Ingrid's portrait. */
-    .hero::before { content: ""; position: absolute; z-index: 1; top: -78px; left: -126px; width: min(85vw, 545px); height: 455px; background: url("assets/topographic-hero.svg") left top / contain no-repeat; opacity: .19; pointer-events: none; }
     .hero::after { content: ""; position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 9px; background: var(--orange); }
     .hero-copy { z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); }
     .hero-copy__intro { align-self: start; }
@@ -223,6 +221,13 @@
     .diagnostic-cta:hover { border-color: var(--orange); background: var(--orange); color: var(--ink); }
     .diagnostic-cta[aria-disabled="true"] { opacity: .5; pointer-events: none; }
 
+    /* A quiet visual threshold before the frames: the map signals a change of chapter without adding a content wall. */
+    .frame-prelude { position: relative; isolation: isolate; min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; padding: 31px var(--gutter) 34px; color: var(--paper); background: var(--ink); }
+    .frame-prelude::before { content: ""; position: absolute; z-index: -1; inset: 0; background: url("assets/topographic-hero.svg") center 42% / min(980px, 180vw) auto no-repeat; opacity: .32; pointer-events: none; }
+    .frame-prelude-kicker { color: var(--orange); }
+    .frame-prelude-title { align-self: center; max-width: 7.7ch; margin: 0; font: 400 clamp(54px, 14vw, 148px)/.88 var(--serif); letter-spacing: -.055em; }
+    .frame-prelude-title em { color: var(--orange); font-style: italic; }
+    .frame-prelude-scroll { justify-self: start; margin: 0; padding-top: 14px; border-top: 1px solid var(--hairline); color: rgba(244,240,232,.7); font-size: 9px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
     /* About: the frame sequence owns the full viewport, then the text follows as the visitor keeps scrolling. */
     .about { overflow: visible; padding: 0 0 78px; color: var(--paper); background: var(--ink); }
     .about-grid { display: grid; gap: 42px; }
@@ -301,7 +306,6 @@
 
     @media (min-width: 700px) {
       .hero { grid-template-columns: minmax(0, 60%) minmax(360px, 40%); }
-      .hero::before { top: -128px; left: -92px; width: min(53vw, 760px); height: 590px; opacity: .17; }
       .hero-copy { padding: 116px clamp(38px, 7vw, 120px) 54px var(--gutter); }
       .hero-label { max-width: none; font-size: 10px; }
       .hero-title { font-size: clamp(105px, 10.5vw, 188px); }
@@ -340,6 +344,9 @@
       .quote-slot--line cite { max-width: 155px; text-align: right; }
       .diagnostic-grid { grid-template-columns: minmax(0, .9fr) minmax(380px, .72fr); align-items: start; gap: clamp(60px, 10vw, 160px); }
       .diagnostic-panel { padding: 24px; }
+      .frame-prelude { padding: 42px var(--gutter) 46px; }
+      .frame-prelude::before { background-position: center 40%; background-size: min(1040px, 80vw) auto; opacity: .3; }
+      .frame-prelude-title { max-width: 7.5ch; }
       .about { padding-top: 0; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
       .about-grid--scroll { display: block; }
@@ -533,7 +540,13 @@
       <p class="proof-disclaimer">Textos preservados como enviados; apenas nomes e identificações foram omitidos.</p>
     </section>
 
-    <section class="about" id="sobre" aria-labelledby="about-title">
+    <section class="frame-prelude" id="sobre" aria-labelledby="frame-prelude-title">
+      <p class="kicker frame-prelude-kicker"><span class="section-number">04</span> Sobre Ingrid</p>
+      <h2 class="frame-prelude-title" id="frame-prelude-title">Toda trajetória começa por uma <em>direção.</em></h2>
+      <p class="frame-prelude-scroll">Role para entrar ↓</p>
+    </section>
+
+    <section class="about" aria-labelledby="about-title">
       <div class="about-grid about-grid--scroll">
         <div class="about-scroll-shell">
           <div class="about-image about-video" aria-label="Animação de Ingrid Nascimento controlada pela rolagem">
