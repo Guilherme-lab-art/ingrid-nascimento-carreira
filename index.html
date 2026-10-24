@@ -134,20 +134,19 @@
     .step h3 { margin: 0; font: 400 clamp(29px, 8vw, 58px)/.92 var(--serif); letter-spacing: -.045em; }
     .step p { margin: 11px 0 0; max-width: 440px; font-size: 13px; line-height: 1.63; }
 
-    /* About: a photograph gets its own quiet, uncluttered space */
-    .about { overflow: visible; padding: 78px var(--gutter); color: var(--paper); background: var(--ink); }
+    /* About: the frame sequence owns the full viewport, then the text follows as the visitor keeps scrolling. */
+    .about { overflow: visible; padding: 0 0 78px; color: var(--paper); background: var(--ink); }
     .about-grid { display: grid; gap: 42px; }
     .about-grid--scroll { display: block; }
     .about-scene { position: relative; min-height: 343svh; }
     .about-image { position: relative; min-height: 475px; overflow: hidden; background: #151515; }
     .about-image::after { content: "IN"; position: absolute; z-index: 2; bottom: -17px; left: -5px; color: var(--orange); font: 400 150px/.7 var(--display); }
     .about-image img { position: absolute; top: 0; left: 0; width: 200%; max-width: none; transform: translateX(-50%); filter: saturate(.9); }
-    /* The supplied portrait video is shown in its native 9:16 format — never cropped. */
-    .about-video { width: 100%; max-width: none; min-height: 0; height: 100svh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background: transparent; }
+    .about-video { width: 100vw; min-height: 0; height: 100svh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
     .about-video::after, .about-video::before { display: none; }
-    .about-scroll-canvas { display: block; width: auto; max-width: 100%; height: min(86svh, 760px); aspect-ratio: 9 / 16; background: #000; box-shadow: 0 0 0 1px rgba(244,240,232,.22), 0 0 0 9px rgba(255,87,45,.09); }
-    .video-caption { position: absolute; z-index: 2; right: 11px; bottom: 26px; color: rgba(244,240,232,.75); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
-    .about-grid--scroll .about-content { max-width: 660px; margin: 0 auto; padding-top: 10px; }
+    .about-scroll-canvas { display: block; width: 100%; max-width: none; height: 100%; aspect-ratio: auto; background: #000; }
+    .video-caption { position: absolute; z-index: 2; right: max(16px, var(--gutter)); bottom: 28px; color: rgba(244,240,232,.75); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .about-grid--scroll .about-content { max-width: 660px; margin: 0 auto; padding: 0 var(--gutter); }
     .about-content { display: grid; gap: 23px; }
     .about-content .section-title { max-width: 8ch; }
     .about-content .section-copy { max-width: 515px; color: rgba(244,240,232,.75); }
@@ -221,14 +220,16 @@
       .step { grid-template-columns: 1fr; min-height: 255px; padding: 28px 22px 27px 0; border-right: 1px solid rgba(8,8,8,.28); border-bottom: 0; }
       .step + .step { padding-left: 22px; }
       .step:last-child { border-right: 0; }
-      .about { padding-top: 123px; padding-bottom: 123px; }
+      .about { padding-top: 0; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
       .about-grid--scroll { display: block; }
       .about-grid--scroll .about-scene { min-height: 343svh; }
-      .about-grid--scroll .about-content { max-width: 700px; margin: 0 auto; padding-top: 32px; }
+      .about-grid--scroll .about-content { max-width: 700px; margin: 0 auto; padding: 0 var(--gutter); }
       .about-scene { min-height: 343svh; }
       .about-image { min-height: 640px; }
       .about-image img { width: auto; height: 100%; transform: translateX(-50%); }
+      /* Desktop keeps the native 9:16 composition centred inside a full-screen black stage. */
+      .about-scroll-canvas { width: min(100vw, 56.25svh); height: 100svh; aspect-ratio: 9 / 16; }
       .about-video { min-height: 0; }
       .contact { padding-top: 120px; padding-bottom: 118px; }
       .contact-grid { grid-template-columns: minmax(0, .9fr) minmax(330px,.75fr); gap: clamp(55px, 10vw, 160px); }
@@ -522,12 +523,19 @@
           const first = Math.floor(frame);
           const mix = frame - first;
           const next = Math.min(lastFrame, first + 1);
+          const drawCover = image => {
+            const scale = Math.max(scrollCanvas.width / image.naturalWidth, scrollCanvas.height / image.naturalHeight);
+            const width = image.naturalWidth * scale;
+            const height = image.naturalHeight * scale;
+            context.drawImage(image, (scrollCanvas.width - width) / 2, (scrollCanvas.height - height) / 2, width, height);
+          };
           context.globalAlpha = 1;
-          context.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height);
-          if (imageReady(first)) context.drawImage(images[first], 0, 0, scrollCanvas.width, scrollCanvas.height);
+          context.fillStyle = '#000';
+          context.fillRect(0, 0, scrollCanvas.width, scrollCanvas.height);
+          if (imageReady(first)) drawCover(images[first]);
           if (mix > .001 && imageReady(next)) {
             context.globalAlpha = mix;
-            context.drawImage(images[next], 0, 0, scrollCanvas.width, scrollCanvas.height);
+            drawCover(images[next]);
             context.globalAlpha = 1;
           }
         };
