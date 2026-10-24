@@ -137,11 +137,12 @@
     /* About: a photograph gets its own quiet, uncluttered space */
     .about { overflow: hidden; padding: 78px var(--gutter); color: var(--paper); background: var(--ink); }
     .about-grid { display: grid; gap: 42px; }
+    .about-scene { position: relative; min-height: calc(100svh + 420px); }
     .about-image { position: relative; min-height: 475px; overflow: hidden; background: #151515; }
     .about-image::after { content: "IN"; position: absolute; z-index: 2; bottom: -17px; left: -5px; color: var(--orange); font: 400 150px/.7 var(--display); }
     .about-image img { position: absolute; top: 0; left: 0; width: 200%; max-width: none; transform: translateX(-50%); filter: saturate(.9); }
     /* The supplied portrait video is shown in its native 9:16 format — never cropped. */
-    .about-video { --frame-y: 0px; --frame-rotate: 0deg; --frame-scale: 1; width: min(100%, 420px); min-height: 0; aspect-ratio: 9 / 16; justify-self: center; overflow: visible; background: #000; transform: translate3d(0, var(--frame-y), 0) rotate(var(--frame-rotate)) scale(var(--frame-scale)); transform-origin: center; will-change: transform; }
+    .about-video { width: min(100%, 420px); min-height: 0; aspect-ratio: 9 / 16; position: sticky; top: clamp(28px, 9svh, 80px); justify-self: center; overflow: visible; background: #000; will-change: contents; }
     .about-video::after { display: none; }
     .about-video::before { content: ""; position: absolute; z-index: 4; inset: 9px; border: 1px solid rgba(244,240,232,.35); box-shadow: 0 0 0 9px rgba(255,87,45,.11); pointer-events: none; }
     .about-video video { width: 100%; height: 100%; object-fit: contain; background: #000; }
@@ -221,6 +222,7 @@
       .step:last-child { border-right: 0; }
       .about { padding-top: 123px; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
+      .about-scene { min-height: calc(100svh + 520px); }
       .about-image { min-height: 640px; }
       .about-image img { width: auto; height: 100%; transform: translateX(-50%); }
       .about-video { min-height: 0; }
@@ -382,9 +384,11 @@
 
     <section class="about" id="sobre" aria-labelledby="about-title">
       <div class="about-grid">
-        <div class="about-image about-video reveal">
-          <video id="ingrid-video" muted playsinline autoplay preload="auto" aria-label="Vídeo de Ingrid Nascimento"></video>
-          <span class="video-caption">Ingrid Nascimento</span>
+        <div class="about-scene">
+          <div class="about-image about-video reveal">
+            <video id="ingrid-video" muted playsinline preload="auto" aria-label="Vídeo de Ingrid Nascimento controlado pela rolagem"></video>
+            <span class="video-caption">Role para avançar</span>
+          </div>
         </div>
         <div class="about-content reveal">
           <p class="kicker orange"><span class="section-number">04</span> Sobre Ingrid</p>
@@ -482,32 +486,38 @@
         document.querySelectorAll('.reveal').forEach(item => item.classList.add('is-visible'));
       }
 
-      // Scroll-linked frame motion: the 9:16 video subtly rises, scales and rotates as it enters the chapter.
-      const aboutSection = document.querySelector('#sobre');
+      // Scroll-scrub video: scrolling the chapter advances the 6-second video; scrolling back reverses it.
+      const portraitVideo = document.querySelector('#ingrid-video');
+      const videoScene = document.querySelector('.about-scene');
       const videoFrame = document.querySelector('.about-video');
-      if (!reduced.matches && aboutSection && videoFrame) {
+      if (portraitVideo && videoScene && videoFrame) {
+        portraitVideo.src = 'assets/ingrid-loop.mp4';
+        portraitVideo.pause();
         let scrollPending = false;
-        const updateVideoFrame = () => {
-          const rect = aboutSection.getBoundingClientRect();
-          const viewport = window.innerHeight;
-          // The frame travels 200px across the chapter, so the motion is perceptible on touch scroll.
-          const start = viewport * .9;
-          const end = -rect.height * .32;
-          const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-          const y = Math.round(100 - progress * 200);
-          const rotation = (-8 + progress * 16).toFixed(2);
-          const scale = (.93 + Math.sin(progress * Math.PI) * .1).toFixed(3);
-          videoFrame.style.setProperty('--frame-y', `${y}px`);
-          videoFrame.style.setProperty('--frame-rotate', `${rotation}deg`);
-          videoFrame.style.setProperty('--frame-scale', scale);
+        const updateVideoFromScroll = () => {
+          if (!Number.isFinite(portraitVideo.duration) || !portraitVideo.duration) {
+            scrollPending = false;
+            return;
+          }
+          const rect = videoScene.getBoundingClientRect();
+          const stickyTop = Number.parseFloat(getComputedStyle(videoFrame).top) || 0;
+          const travel = Math.max(1, videoScene.offsetHeight - window.innerHeight + stickyTop);
+          const progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / travel));
+          portraitVideo.currentTime = Math.min(portraitVideo.duration - .01, portraitVideo.duration * progress);
           scrollPending = false;
         };
-        const requestFrameUpdate = () => {
-          if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateVideoFrame); }
+        const requestVideoUpdate = () => {
+          if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateVideoFromScroll); }
         };
-        window.addEventListener('scroll', requestFrameUpdate, { passive: true });
-        window.addEventListener('resize', requestFrameUpdate);
-        updateVideoFrame();
+        portraitVideo.addEventListener('loadedmetadata', () => {
+          portraitVideo.currentTime = 0;
+          if (!reduced.matches) updateVideoFromScroll();
+        });
+        if (!reduced.matches) {
+          window.addEventListener('scroll', requestVideoUpdate, { passive: true });
+          window.addEventListener('resize', requestVideoUpdate);
+          requestVideoUpdate();
+        }
       }
 
       const form = document.querySelector('#contact-form');
@@ -534,23 +544,6 @@
         status.className = 'form-status is-success';
         window.open(`https://wa.me/5511971843486?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       });
-
-      // The video holds on its final frame for 14 seconds before beginning again.
-      // Muted + playsinline keeps autoplay compatible with mobile browsers.
-      const portraitVideo = document.querySelector('#ingrid-video');
-      if (portraitVideo) {
-        portraitVideo.src = 'assets/ingrid-loop.mp4';
-        let restartTimer;
-        const restartVideo = () => {
-          window.clearTimeout(restartTimer);
-          restartTimer = window.setTimeout(() => {
-            portraitVideo.currentTime = 0;
-            portraitVideo.play().catch(() => { /* Browser may require the next user interaction. */ });
-          }, 14000);
-        };
-        portraitVideo.addEventListener('ended', restartVideo);
-        portraitVideo.play().catch(() => { /* Muted autoplay is normally available. */ });
-      }
 
       document.querySelector('#year').textContent = new Date().getFullYear();
     })();
