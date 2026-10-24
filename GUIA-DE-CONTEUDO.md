@@ -110,7 +110,6 @@ Você pode editar os textos das opções, mas mantenha no máximo quatro ou cinc
 ## Estrutura de conversão já pronta
 
 - Botão de WhatsApp no hero;
-- botão flutuante de WhatsApp;
 - formulário de contato que monta mensagem de WhatsApp;
 - diagnóstico de assunto;
 - links por serviço;
@@ -125,7 +124,6 @@ O site também cria eventos internos de interação (`ingrid:track`), mas **nenh
 Com consentimento e conta configurada, um desenvolvedor pode ouvir esses eventos para enviar conversões ao Google Analytics, Meta Pixel ou outra ferramenta:
 
 - `hero_whatsapp`
-- `floating_whatsapp`
 - `contact_whatsapp`
 - `contact_form_whatsapp`
 - `diagnostic_selection`
