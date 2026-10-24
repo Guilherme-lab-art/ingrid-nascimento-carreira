@@ -104,6 +104,8 @@
 
     /* Hero, intentionally designed from mobile first */
     .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 57%) minmax(0, 43%); overflow: hidden; background: var(--ink); isolation: isolate; }
+    /* A second, quieter map lives only in the hero: it suggests possibility without competing with Ingrid's portrait. */
+    .hero::before { content: ""; position: absolute; z-index: 1; top: -78px; left: -126px; width: min(85vw, 545px); height: 455px; background: url("assets/topographic-hero.svg") left top / contain no-repeat; opacity: .19; pointer-events: none; }
     .hero::after { content: ""; position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 9px; background: var(--orange); }
     .hero-copy { z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); }
     .hero-copy__intro { align-self: start; }
@@ -299,6 +301,7 @@
 
     @media (min-width: 700px) {
       .hero { grid-template-columns: minmax(0, 60%) minmax(360px, 40%); }
+      .hero::before { top: -128px; left: -92px; width: min(53vw, 760px); height: 590px; opacity: .17; }
       .hero-copy { padding: 116px clamp(38px, 7vw, 120px) 54px var(--gutter); }
       .hero-label { max-width: none; font-size: 10px; }
       .hero-title { font-size: clamp(105px, 10.5vw, 188px); }
