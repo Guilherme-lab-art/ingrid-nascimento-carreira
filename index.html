@@ -74,21 +74,21 @@
     .menu-close { min-width: 84px; min-height: 31px; padding: 0 10px; border: 1px solid rgba(244,240,232,.42); border-radius: 99px; background: transparent; color: var(--paper); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; transition: background .2s ease, color .2s ease, border-color .2s ease; }
     .menu-close:hover { border-color: var(--orange); background: var(--orange); color: var(--ink); }
     .menu-list { counter-reset: menu-item; align-self: center; display: grid; gap: 0; width: 100%; margin: 0; padding: 27px 0 23px; list-style: none; }
-    .menu-list li { position: relative; counter-increment: menu-item; padding: 7px 23px 8px 35px; border-bottom: 1px solid rgba(244,240,232,.18); opacity: 0; transform: translateY(16px); transition: opacity .4s ease, transform .45s cubic-bezier(.16,1,.3,1); }
-    .menu-list li:first-child { border-top: 1px solid rgba(244,240,232,.18); transform: translateY(-16px); }
-    .menu-list li:nth-child(2) { transform: translateY(16px); }
-    .menu-list li:nth-child(3) { transform: translateX(-22px); }
-    .menu-list li:nth-child(4) { transform: translateX(22px); }
-    .menu-list li:nth-child(5) { transform: translateY(16px); }
+    .menu-list li { position: relative; counter-increment: menu-item; padding: 7px 23px 8px 35px; border-bottom: 1px solid rgba(244,240,232,.18); opacity: 0; transform: translateY(12px); transition: opacity .62s ease, transform .72s cubic-bezier(.22,.75,.2,1); }
+    .menu-list li:first-child { border-top: 1px solid rgba(244,240,232,.18); transform: translateY(-12px); }
+    .menu-list li:nth-child(2) { transform: translateY(12px); }
+    .menu-list li:nth-child(3) { transform: translateX(-16px); }
+    .menu-list li:nth-child(4) { transform: translateX(16px); }
+    .menu-list li:nth-child(5) { transform: translateY(12px); }
     .menu-list li::before { content: "0" counter(menu-item); position: absolute; top: 13px; left: 0; color: var(--orange); font-size: 9px; font-weight: 900; letter-spacing: .11em; }
     .menu-list a { display: block; color: var(--paper); font: 400 clamp(39px, 11.4vw, 82px)/.79 var(--display); letter-spacing: .012em; transition: color .22s ease, transform .22s ease; }
     .menu-list a:hover { color: var(--orange); transform: translateX(7px); }
     .menu-panel.is-open .menu-list li { opacity: 1; transform: none; }
-    .menu-panel.is-open .menu-list li:nth-child(1) { transition-delay: .07s; }
-    .menu-panel.is-open .menu-list li:nth-child(2) { transition-delay: .12s; }
-    .menu-panel.is-open .menu-list li:nth-child(3) { transition-delay: .17s; }
-    .menu-panel.is-open .menu-list li:nth-child(4) { transition-delay: .22s; }
-    .menu-panel.is-open .menu-list li:nth-child(5) { transition-delay: .27s; }
+    .menu-panel.is-open .menu-list li:nth-child(1) { transition-delay: .10s; }
+    .menu-panel.is-open .menu-list li:nth-child(2) { transition-delay: .16s; }
+    .menu-panel.is-open .menu-list li:nth-child(3) { transition-delay: .22s; }
+    .menu-panel.is-open .menu-list li:nth-child(4) { transition-delay: .28s; }
+    .menu-panel.is-open .menu-list li:nth-child(5) { transition-delay: .34s; }
     .menu-foot { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; border-top: 1px solid rgba(244,240,232,.23); padding-top: 14px; color: rgba(244,240,232,.78); font-size: 9px; font-weight: 800; letter-spacing: .04em; line-height: 1.5; }
     .menu-foot::before { content: "CONTATOS"; grid-column: 1 / -1; margin-bottom: 1px; color: var(--orange); font-size: 8px; letter-spacing: .16em; }
     .menu-foot a { transition: color .2s ease; }
@@ -224,19 +224,19 @@
     .footer-bottom { display: flex; justify-content: space-between; gap: 20px; margin-top: 55px; padding-top: 14px; border-top: 1px solid var(--hairline); font-size: 9px; line-height: 1.5; }
 
     /* Motion stays understated and can be disabled by the visitor. */
-    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .86s cubic-bezier(.22,.75,.2,1), transform .86s cubic-bezier(.22,.75,.2,1); }
     .js .reveal.is-visible { opacity: 1; transform: none; }
     /* The hero words arrive from four directions: top, bottom, left and right. */
-    .js .hero-title span { opacity: 0; transform: translateY(-42px); transition: opacity .72s cubic-bezier(.16,1,.3,1), transform .72s cubic-bezier(.16,1,.3,1); }
-    .js .hero-title span:nth-child(2) { transform: translateY(44px); }
-    .js .hero-title span:nth-child(3) { transform: translateX(-44px); }
-    .js .hero-title span:nth-child(4) { transform: translateX(44px); }
+    .js .hero-title span { opacity: 0; transform: translateY(-30px); transition: opacity .96s cubic-bezier(.22,.75,.2,1), transform .96s cubic-bezier(.22,.75,.2,1); }
+    .js .hero-title span:nth-child(2) { transform: translateY(30px); }
+    .js .hero-title span:nth-child(3) { transform: translateX(-32px); }
+    .js .hero-title span:nth-child(4) { transform: translateX(32px); }
     .js.is-ready .hero-title span { opacity: 1; transform: none; }
-    .js.is-ready .hero-title span:nth-child(2) { transition-delay: .08s; }
-    .js.is-ready .hero-title span:nth-child(3) { transition-delay: .16s; }
-    .js.is-ready .hero-title span:nth-child(4) { transition-delay: .24s; }
+    .js.is-ready .hero-title span:nth-child(2) { transition-delay: .11s; }
+    .js.is-ready .hero-title span:nth-child(3) { transition-delay: .22s; }
+    .js.is-ready .hero-title span:nth-child(4) { transition-delay: .33s; }
     /* Section-title words use the same four-direction rhythm as they enter the viewport. */
-    .js [data-word-motion] .word-motion { display: inline-block; opacity: 0; transform: var(--word-offset, translateY(1em)); will-change: transform, opacity; transition: opacity .62s cubic-bezier(.16,1,.3,1), transform .62s cubic-bezier(.16,1,.3,1); transition-delay: var(--word-delay, 0ms); }
+    .js [data-word-motion] .word-motion { display: inline-block; opacity: 0; transform: var(--word-offset, translateY(.55em)); will-change: transform, opacity; transition: opacity .9s cubic-bezier(.22,.75,.2,1), transform .9s cubic-bezier(.22,.75,.2,1); transition-delay: var(--word-delay, 0ms); }
     .js [data-word-motion].is-visible .word-motion { opacity: 1; transform: translate3d(0,0,0); }
     .js .hero-portrait { opacity: 0; transform: translateX(20px); transition: opacity .9s ease .12s, transform .9s cubic-bezier(.16,1,.3,1) .12s; }
     .js.is-ready .hero-portrait { opacity: 1; transform: none; }
@@ -558,7 +558,7 @@
       // Split editorial headings into accessible word-level motions: top, bottom, left, then right.
       const motionHeadings = [...document.querySelectorAll('[data-word-motion]')];
       if (!reduced.matches) {
-        const directions = ['translateY(-.8em)', 'translateY(.8em)', 'translateX(-.8em)', 'translateX(.8em)'];
+        const directions = ['translateY(-.55em)', 'translateY(.55em)', 'translateX(-.55em)', 'translateX(.55em)'];
         motionHeadings.forEach(heading => {
           heading.setAttribute('aria-label', heading.textContent.trim());
           const textNodes = [];
@@ -577,7 +577,7 @@
               word.className = 'word-motion';
               word.textContent = part;
               word.style.setProperty('--word-offset', directions[wordIndex % directions.length]);
-              word.style.setProperty('--word-delay', `${70 + wordIndex * 52}ms`);
+              word.style.setProperty('--word-delay', `${90 + wordIndex * 58}ms`);
               fragment.append(word);
               wordIndex += 1;
             });
