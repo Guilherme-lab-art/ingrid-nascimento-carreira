@@ -504,8 +504,8 @@
           return image;
         });
         const lastFrame = images.length - 1;
-        // Start from the client-selected phone-side frame instead of the first source frame.
-        const firstFrame = Math.min(27, lastFrame);
+        // Start at the client-selected frame from the supplied scroll sequence.
+        const firstFrame = Math.min(26, lastFrame);
         let currentFrame = firstFrame;
         let drawnFrame = -1;
         let previousTime = performance.now();
