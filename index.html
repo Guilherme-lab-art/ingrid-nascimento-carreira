@@ -135,18 +135,19 @@
     .step p { margin: 11px 0 0; max-width: 440px; font-size: 13px; line-height: 1.63; }
 
     /* About: a photograph gets its own quiet, uncluttered space */
-    .about { overflow: hidden; padding: 78px var(--gutter); color: var(--paper); background: var(--ink); }
+    .about { overflow: visible; padding: 78px var(--gutter); color: var(--paper); background: var(--ink); }
     .about-grid { display: grid; gap: 42px; }
-    .about-scene { position: relative; min-height: calc(100svh + 420px); }
+    .about-grid--scroll { display: block; }
+    .about-scene { position: relative; min-height: 343svh; }
     .about-image { position: relative; min-height: 475px; overflow: hidden; background: #151515; }
     .about-image::after { content: "IN"; position: absolute; z-index: 2; bottom: -17px; left: -5px; color: var(--orange); font: 400 150px/.7 var(--display); }
     .about-image img { position: absolute; top: 0; left: 0; width: 200%; max-width: none; transform: translateX(-50%); filter: saturate(.9); }
     /* The supplied portrait video is shown in its native 9:16 format — never cropped. */
-    .about-video { width: min(100%, 420px); min-height: 0; aspect-ratio: 9 / 16; position: sticky; top: clamp(28px, 9svh, 80px); justify-self: center; overflow: visible; background: #000; will-change: contents; }
-    .about-video::after { display: none; }
-    .about-video::before { content: ""; position: absolute; z-index: 4; inset: 9px; border: 1px solid rgba(244,240,232,.35); box-shadow: 0 0 0 9px rgba(255,87,45,.11); pointer-events: none; }
-    .about-video video { width: 100%; height: 100%; object-fit: contain; background: #000; }
-    .video-caption { position: absolute; z-index: 2; right: 11px; bottom: 13px; color: rgba(244,240,232,.75); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .about-video { width: 100%; max-width: none; min-height: 0; height: 100svh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background: transparent; }
+    .about-video::after, .about-video::before { display: none; }
+    .about-scroll-canvas { display: block; width: auto; max-width: 100%; height: min(86svh, 760px); aspect-ratio: 9 / 16; background: #000; box-shadow: 0 0 0 1px rgba(244,240,232,.22), 0 0 0 9px rgba(255,87,45,.09); }
+    .video-caption { position: absolute; z-index: 2; right: 11px; bottom: 26px; color: rgba(244,240,232,.75); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
+    .about-grid--scroll .about-content { max-width: 660px; margin: 0 auto; padding-top: 10px; }
     .about-content { display: grid; gap: 23px; }
     .about-content .section-title { max-width: 8ch; }
     .about-content .section-copy { max-width: 515px; color: rgba(244,240,232,.75); }
@@ -222,7 +223,10 @@
       .step:last-child { border-right: 0; }
       .about { padding-top: 123px; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
-      .about-scene { min-height: calc(100svh + 520px); }
+      .about-grid--scroll { display: block; }
+      .about-grid--scroll .about-scene { min-height: 343svh; }
+      .about-grid--scroll .about-content { max-width: 700px; margin: 0 auto; padding-top: 32px; }
+      .about-scene { min-height: 343svh; }
       .about-image { min-height: 640px; }
       .about-image img { width: auto; height: 100%; transform: translateX(-50%); }
       .about-video { min-height: 0; }
@@ -383,10 +387,10 @@
     </section>
 
     <section class="about" id="sobre" aria-labelledby="about-title">
-      <div class="about-grid">
+      <div class="about-grid about-grid--scroll">
         <div class="about-scene">
-          <div class="about-image about-video reveal">
-            <video id="ingrid-video" muted playsinline preload="auto" aria-label="Vídeo de Ingrid Nascimento controlado pela rolagem"></video>
+          <div class="about-image about-video" aria-label="Animação de Ingrid Nascimento controlada pela rolagem">
+            <canvas class="about-scroll-canvas" id="ingrid-scroll-canvas" role="img" aria-label="Vídeo em frames de Ingrid Nascimento. Role para avançar."></canvas>
             <span class="video-caption">Role para avançar</span>
           </div>
         </div>
@@ -452,6 +456,7 @@
     <div class="footer-bottom"><span>© <span id="year">2026</span> Ingrid Nascimento</span><a href="#inicio">Voltar ao início ↑</a></div>
   </footer>
 
+  <script src="assets/ingrid-scroll-frames.js"></script>
   <script>
     (() => {
       const root = document.documentElement;
@@ -486,38 +491,66 @@
         document.querySelectorAll('.reveal').forEach(item => item.classList.add('is-visible'));
       }
 
-      // Scroll-scrub video: scrolling the chapter advances the 6-second video; scrolling back reverses it.
-      const portraitVideo = document.querySelector('#ingrid-video');
+      // Frame-by-frame scroll animation supplied by the client: scroll down advances, scroll up reverses.
+      const scrollCanvas = document.querySelector('#ingrid-scroll-canvas');
       const videoScene = document.querySelector('.about-scene');
-      const videoFrame = document.querySelector('.about-video');
-      if (portraitVideo && videoScene && videoFrame) {
-        portraitVideo.src = 'assets/ingrid-loop.mp4';
-        portraitVideo.pause();
-        let scrollPending = false;
-        const updateVideoFromScroll = () => {
-          if (!Number.isFinite(portraitVideo.duration) || !portraitVideo.duration) {
-            scrollPending = false;
-            return;
-          }
-          const rect = videoScene.getBoundingClientRect();
-          const stickyTop = Number.parseFloat(getComputedStyle(videoFrame).top) || 0;
-          const travel = Math.max(1, videoScene.offsetHeight - window.innerHeight + stickyTop);
-          const progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / travel));
-          portraitVideo.currentTime = Math.min(portraitVideo.duration - .01, portraitVideo.duration * progress);
-          scrollPending = false;
-        };
-        const requestVideoUpdate = () => {
-          if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateVideoFromScroll); }
-        };
-        portraitVideo.addEventListener('loadedmetadata', () => {
-          portraitVideo.currentTime = 0;
-          if (!reduced.matches) updateVideoFromScroll();
+      const frameSources = window.INGRID_SCROLL_FRAMES || [];
+      if (scrollCanvas && videoScene && frameSources.length) {
+        const context = scrollCanvas.getContext('2d', { alpha: false });
+        const images = frameSources.map(source => {
+          const image = new Image();
+          image.decoding = 'async';
+          image.src = source;
+          return image;
         });
-        if (!reduced.matches) {
-          window.addEventListener('scroll', requestVideoUpdate, { passive: true });
-          window.addEventListener('resize', requestVideoUpdate);
-          requestVideoUpdate();
-        }
+        const lastFrame = images.length - 1;
+        let currentFrame = 0;
+        let drawnFrame = -1;
+        let previousTime = performance.now();
+
+        const imageReady = index => images[index] && images[index].complete && images[index].naturalWidth;
+        const resizeCanvas = () => {
+          const bounds = scrollCanvas.getBoundingClientRect();
+          const ratio = Math.min(window.devicePixelRatio || 1, 2);
+          scrollCanvas.width = Math.round(bounds.width * ratio);
+          scrollCanvas.height = Math.round(bounds.height * ratio);
+          drawnFrame = -1;
+        };
+        const drawFrame = frame => {
+          const first = Math.floor(frame);
+          const mix = frame - first;
+          const next = Math.min(lastFrame, first + 1);
+          context.globalAlpha = 1;
+          context.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height);
+          if (imageReady(first)) context.drawImage(images[first], 0, 0, scrollCanvas.width, scrollCanvas.height);
+          if (mix > .001 && imageReady(next)) {
+            context.globalAlpha = mix;
+            context.drawImage(images[next], 0, 0, scrollCanvas.width, scrollCanvas.height);
+            context.globalAlpha = 1;
+          }
+        };
+        const scrollProgress = () => {
+          const rect = videoScene.getBoundingClientRect();
+          const travel = Math.max(1, videoScene.offsetHeight - window.innerHeight);
+          return Math.min(1, Math.max(0, -rect.top / travel));
+        };
+        const animateFrames = now => {
+          const delta = Math.min(.05, (now - previousTime) / 1000);
+          previousTime = now;
+          const target = reduced.matches ? 0 : scrollProgress() * lastFrame;
+          currentFrame += (target - currentFrame) * (1 - Math.exp(-delta * 9));
+          if (Math.abs(target - currentFrame) < .003) currentFrame = target;
+          if (Math.abs(currentFrame - drawnFrame) > .001) {
+            drawFrame(currentFrame);
+            drawnFrame = currentFrame;
+            scrollCanvas.dataset.frame = String(Math.round(currentFrame));
+          }
+          requestAnimationFrame(animateFrames);
+        };
+        window.addEventListener('resize', resizeCanvas);
+        images[0].addEventListener('load', () => { resizeCanvas(); drawFrame(0); }, { once: true });
+        resizeCanvas();
+        requestAnimationFrame(animateFrames);
       }
 
       const form = document.querySelector('#contact-form');
