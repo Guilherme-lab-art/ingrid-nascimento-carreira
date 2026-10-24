@@ -504,7 +504,9 @@
           return image;
         });
         const lastFrame = images.length - 1;
-        let currentFrame = 0;
+        // Start from the client-selected phone-side frame instead of the first source frame.
+        const firstFrame = Math.min(27, lastFrame);
+        let currentFrame = firstFrame;
         let drawnFrame = -1;
         let previousTime = performance.now();
 
@@ -537,7 +539,7 @@
         const animateFrames = now => {
           const delta = Math.min(.05, (now - previousTime) / 1000);
           previousTime = now;
-          const target = reduced.matches ? 0 : scrollProgress() * lastFrame;
+          const target = reduced.matches ? firstFrame : firstFrame + scrollProgress() * (lastFrame - firstFrame);
           currentFrame += (target - currentFrame) * (1 - Math.exp(-delta * 9));
           if (Math.abs(target - currentFrame) < .003) currentFrame = target;
           if (Math.abs(currentFrame - drawnFrame) > .001) {
@@ -548,7 +550,7 @@
           requestAnimationFrame(animateFrames);
         };
         window.addEventListener('resize', resizeCanvas);
-        images[0].addEventListener('load', () => { resizeCanvas(); drawFrame(0); }, { once: true });
+        images[firstFrame].addEventListener('load', () => { resizeCanvas(); drawFrame(firstFrame); }, { once: true });
         resizeCanvas();
         requestAnimationFrame(animateFrames);
       }
