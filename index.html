@@ -138,7 +138,9 @@
     .about { overflow: visible; padding: 0 0 78px; color: var(--paper); background: var(--ink); }
     .about-grid { display: grid; gap: 42px; }
     .about-grid--scroll { display: block; }
-    .about-scene { position: relative; min-height: 343svh; }
+    .about-scroll-shell { position: relative; }
+    /* This invisible track is the scroll distance used to play the 144-frame sequence. */
+    .about-scene { height: 243svh; min-height: 243svh; }
     .about-image { position: relative; min-height: 475px; overflow: hidden; background: #151515; }
     .about-image::after { content: "IN"; position: absolute; z-index: 2; bottom: -17px; left: -5px; color: var(--orange); font: 400 150px/.7 var(--display); }
     .about-image img { position: absolute; top: 0; left: 0; width: 200%; max-width: none; transform: translateX(-50%); filter: saturate(.9); }
@@ -146,7 +148,8 @@
     .about-video::after, .about-video::before { display: none; }
     .about-scroll-canvas { display: block; width: 100%; max-width: none; height: 100%; aspect-ratio: auto; background: #000; }
     .video-caption { position: absolute; z-index: 2; right: max(16px, var(--gutter)); bottom: 28px; color: rgba(244,240,232,.75); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
-    .about-grid--scroll .about-content { max-width: 660px; margin: 0 auto; padding: 0 var(--gutter); }
+    /* The opaque panel begins just after the last frame and travels upward over the pinned animation. */
+    .about-grid--scroll .about-content { position: relative; z-index: 2; min-height: 100svh; max-width: none; margin: 0; padding: 78px var(--gutter); background: var(--ink); }
     .about-content { display: grid; gap: 23px; }
     .about-content .section-title { max-width: 8ch; }
     .about-content .section-copy { max-width: 515px; color: rgba(244,240,232,.75); }
@@ -223,9 +226,9 @@
       .about { padding-top: 0; padding-bottom: 123px; }
       .about-grid { grid-template-columns: minmax(320px,.75fr) minmax(0,1fr); align-items: center; gap: clamp(55px, 10vw, 150px); }
       .about-grid--scroll { display: block; }
-      .about-grid--scroll .about-scene { min-height: 343svh; }
-      .about-grid--scroll .about-content { max-width: 700px; margin: 0 auto; padding: 0 var(--gutter); }
-      .about-scene { min-height: 343svh; }
+      .about-grid--scroll .about-scene { height: 243svh; min-height: 243svh; }
+      .about-grid--scroll .about-content { min-height: 100svh; max-width: none; margin: 0; padding: 123px var(--gutter); }
+      .about-scene { height: 243svh; min-height: 243svh; }
       .about-image { min-height: 640px; }
       .about-image img { width: auto; height: 100%; transform: translateX(-50%); }
       /* Desktop keeps the native 9:16 composition centred inside a full-screen black stage. */
@@ -389,21 +392,22 @@
 
     <section class="about" id="sobre" aria-labelledby="about-title">
       <div class="about-grid about-grid--scroll">
-        <div class="about-scene">
+        <div class="about-scroll-shell">
           <div class="about-image about-video" aria-label="Animação de Ingrid Nascimento controlada pela rolagem">
             <canvas class="about-scroll-canvas" id="ingrid-scroll-canvas" role="img" aria-label="Vídeo em frames de Ingrid Nascimento. Role para avançar."></canvas>
             <span class="video-caption">Role para avançar</span>
           </div>
-        </div>
-        <div class="about-content reveal">
-          <p class="kicker orange"><span class="section-number">04</span> Sobre Ingrid</p>
-          <h2 class="section-title" id="about-title">Carreira é sobre pessoas — e sobre o espaço que elas escolhem <em>ocupar.</em></h2>
-          <p class="section-copy">Ingrid Nascimento atua em Recursos Humanos, consultoria de carreira e desenvolvimento profissional. Seu trabalho une escuta humana e visão estratégica para ajudar profissionais a enxergarem possibilidades e se posicionarem com mais clareza.</p>
-          <ul class="about-credentials" aria-label="Informações profissionais">
-            <li><strong>Atuação</strong>Recursos Humanos, consultoria de carreira e desenvolvimento profissional.</li>
-            <li><strong>Formato</strong>Atendimento personalizado e online.</li>
-            <li><strong>Formação</strong>Administração de Empresas e pós-graduação em Psicologia Organizacional.</li>
-          </ul>
+          <div class="about-scene" aria-hidden="true"></div>
+          <div class="about-content reveal">
+            <p class="kicker orange"><span class="section-number">04</span> Sobre Ingrid</p>
+            <h2 class="section-title" id="about-title">Carreira é sobre pessoas — e sobre o espaço que elas escolhem <em>ocupar.</em></h2>
+            <p class="section-copy">Ingrid Nascimento atua em Recursos Humanos, consultoria de carreira e desenvolvimento profissional. Seu trabalho une escuta humana e visão estratégica para ajudar profissionais a enxergarem possibilidades e se posicionarem com mais clareza.</p>
+            <ul class="about-credentials" aria-label="Informações profissionais">
+              <li><strong>Atuação</strong>Recursos Humanos, consultoria de carreira e desenvolvimento profissional.</li>
+              <li><strong>Formato</strong>Atendimento personalizado e online.</li>
+              <li><strong>Formação</strong>Administração de Empresas e pós-graduação em Psicologia Organizacional.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -494,9 +498,10 @@
 
       // Frame-by-frame scroll animation supplied by the client: scroll down advances, scroll up reverses.
       const scrollCanvas = document.querySelector('#ingrid-scroll-canvas');
-      const videoScene = document.querySelector('.about-scene');
+      const scrollShell = document.querySelector('.about-scroll-shell');
+      const scrollTrack = document.querySelector('.about-scene');
       const frameSources = window.INGRID_SCROLL_FRAMES || [];
-      if (scrollCanvas && videoScene && frameSources.length) {
+      if (scrollCanvas && scrollShell && scrollTrack && frameSources.length) {
         const context = scrollCanvas.getContext('2d', { alpha: false });
         const images = frameSources.map(source => {
           const image = new Image();
@@ -540,8 +545,8 @@
           }
         };
         const scrollProgress = () => {
-          const rect = videoScene.getBoundingClientRect();
-          const travel = Math.max(1, videoScene.offsetHeight - window.innerHeight);
+          const rect = scrollShell.getBoundingClientRect();
+          const travel = Math.max(1, scrollTrack.offsetHeight);
           return Math.min(1, Math.max(0, -rect.top / travel));
         };
         const animateFrames = now => {
