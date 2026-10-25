@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice">
-  <rect width="1600" height="1200" fill="#080808"/>
-  <path fill="#a62a1d" d="M570 0h1030v1200H925L747 790 570 644Z"/>
-  <path fill="#f15b3c" d="M898 0h702v655l-285-40-212-247-205-99Z"/>
-  <path fill="#ff714d" d="M1130 0h470v458l-236-25-129-161-105-41Z" opacity=".76"/>
-  <path fill="#cc3522" d="M747 790l178 410H663l-20-221Z"/>
-  <path fill="#e4472b" d="M925 1200 805 911l164-296 346 40 285 545Z" opacity=".9"/>
-</svg>
