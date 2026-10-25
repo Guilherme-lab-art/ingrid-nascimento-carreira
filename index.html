@@ -68,10 +68,11 @@
     /* Header and mobile navigation */
     .site-header { position: absolute; z-index: 30; top: 0; left: 0; width: 100%; padding: 19px var(--gutter) 0; }
     .header-row { min-height: 49px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--hairline); }
-    .brand { display: inline-flex; align-items: flex-start; gap: 11px; color: var(--paper); font-size: 9px; font-weight: 800; letter-spacing: .13em; line-height: 1.25; text-transform: uppercase; }
+    .brand { display: inline-flex; align-items: flex-start; gap: 11px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; line-height: 1.25; text-transform: uppercase; }
     .brand-mark { color: var(--paper); font: 400 25px/.75 var(--display); letter-spacing: .02em; }
-    .menu-toggle { min-width: 77px; padding: 0 0 13px; border: 0; background: transparent; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-align: right; text-transform: uppercase; }
-    .menu-toggle::after { content: "+"; display: inline-block; padding-left: 8px; color: var(--paper-dim); font-size: 19px; font-weight: 400; line-height: .6; transition: transform .25s ease; }
+    .menu-toggle { min-width: 89px; min-height: 34px; padding: 8px 10px; border: 1px solid var(--paper); background: var(--paper); color: var(--ink); font-size: 10px; font-weight: 900; letter-spacing: .12em; text-align: center; text-transform: uppercase; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+    .menu-toggle:hover { border-color: var(--paper-dim); background: var(--paper-dim); }
+    .menu-toggle::after { content: "+"; display: inline-block; padding-left: 7px; color: currentColor; font-size: 18px; font-weight: 400; line-height: .6; transition: transform .25s ease; }
     .menu-toggle[aria-expanded="true"]::after { transform: rotate(45deg); }
     /* Navigation is a destination in its own right: high-contrast, numbered and easy to scan one-handed. */
     .menu-panel { position: fixed; z-index: 50; inset: 0; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; padding: 19px var(--gutter) 23px; background: radial-gradient(circle at 88% 9%, rgba(207,195,180,.17), transparent 27%), var(--ink); color: var(--paper); isolation: isolate; opacity: 0; pointer-events: none; transform: translateY(-10px); transition: opacity .35s ease, transform .35s cubic-bezier(.2,.75,.2,1); }
@@ -107,11 +108,10 @@
 
     /* Hero: graphic editorial hierarchy — massive type, one clear action and Ingrid's portrait carrying the other half of the frame. */
     .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 57%) minmax(0, 43%); overflow: hidden; background: var(--ink); isolation: isolate; }
-    /* The orange field is not a decoration: it gives the portrait a bold, ownable editorial backdrop while keeping the copy legible on graphite. */
-    .hero::before { content: ""; position: absolute; z-index: 0; inset: 0; background: url("assets/hero-orange-field.svg") 25% center / cover no-repeat; pointer-events: none; }
-    .hero::after { content: ""; position: absolute; z-index: 4; right: 0; bottom: 0; left: 0; height: 9px; background: var(--paper-dim); }
-    .hero-copy { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); border-right: 1px solid rgba(244,240,232,.14); background: linear-gradient(90deg, rgba(8,8,8,.99) 0%, rgba(8,8,8,.96) 68%, rgba(8,8,8,.69) 100%); }
-    .hero-copy::after { content: "DIREÇÃO / PRESENÇA"; position: absolute; top: 79px; right: 8px; color: rgba(244,240,232,.34); font-size: 7px; font-weight: 900; letter-spacing: .13em; writing-mode: vertical-rl; }
+    /* One message, one action and Ingrid: the hero stays intentionally calm. */
+    .hero::after { content: ""; position: absolute; z-index: 4; right: 0; bottom: 0; left: 0; height: 5px; background: var(--paper-dim); }
+    .hero-copy { position: relative; z-index: 3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 95px 18px 42px var(--gutter); border-right: 1px solid rgba(244,240,232,.14); background: var(--ink); }
+    .hero-copy::after { display: none; }
     .hero-copy__intro { align-self: start; }
     .hero-label { display: flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--paper-dim); font-size: 8px; font-weight: 800; letter-spacing: .13em; line-height: 1.3; text-transform: uppercase; }
     .hero-label::before { content: ""; flex: 0 0 17px; height: 1px; background: currentColor; }
@@ -119,13 +119,13 @@
     .hero-title span { display: block; }
     .hero-title em { color: var(--orange-strong); font-style: normal; }
     .hero-summary { margin: 25px 0 0; max-width: 25ch; color: rgba(244,240,232,.7); font-size: 11px; line-height: 1.57; }
-    .hero-action { align-self: start; max-width: 236px; padding-top: 13px; border-top: 1px solid rgba(244,240,232,.24); }
+    .hero-action { align-self: start; max-width: 236px; }
     .hero-action .button { background: var(--paper); color: var(--ink); font-size: 9px; }
     .hero-action .button:hover { background: var(--paper-dim); }
     .hero-note { max-width: 25ch; margin: 13px 0 0; color: rgba(244,240,232,.51); font-size: 8px; line-height: 1.55; }
-    .hero-portrait { position: relative; z-index: 2; overflow: hidden; min-height: 100%; background: transparent; }
-    .hero-portrait::before { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,8,8,.43), transparent 43%), linear-gradient(0deg, rgba(8,8,8,.51), transparent 24%); }
-    .hero-portrait img { position: absolute; top: 54px; left: 0; width: 200%; max-width: none; height: auto; transform: translateX(-50%); filter: saturate(.96) contrast(1.1); mix-blend-mode: screen; }
+    .hero-portrait { position: relative; z-index: 2; overflow: hidden; min-height: 100%; background: #0c0c0b; }
+    .hero-portrait::before { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,8,8,.32), transparent 45%), linear-gradient(0deg, rgba(8,8,8,.48), transparent 22%); }
+    .hero-portrait img { position: absolute; top: 54px; left: 0; width: 200%; max-width: none; height: auto; transform: translateX(-50%); filter: saturate(.92) contrast(1.04); }
     .portrait-label { position: absolute; z-index: 3; right: 9px; bottom: 35px; color: rgba(244,240,232,.78); font-size: 7px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
     .hero-scroll { position: absolute; z-index: 5; right: 16px; bottom: 20px; color: rgba(244,240,232,.62); font-size: 8px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 
@@ -314,7 +314,6 @@
 
     @media (min-width: 700px) {
       .hero { grid-template-columns: minmax(0, 60%) minmax(360px, 40%); }
-      .hero::before { background-position: center; }
       .hero-copy { padding: 116px clamp(38px, 7vw, 120px) 54px var(--gutter); }
       .hero-copy::after { top: 97px; right: 20px; font-size: 8px; }
       .hero-label { max-width: none; font-size: 10px; }
